@@ -3,7 +3,7 @@ module Hob
 
     # List apps
     get '/' do
-      apps = DB[:apps].all
+      apps = World.db[:apps].all
 
       respond_to(params[:format], :list, apps: apps)
     end
@@ -23,14 +23,14 @@ module Hob
     end
 
     post '/apps/.?:format?' do
-      created = DB[:apps].insert(restrict(params))
+      created = World.db[:apps].insert(restrict(params))
 
       respond_to(params[:format], :created, created: created)
     end
 
     # Show app
     get '/apps/:name.?:format?' do
-      builds = DB[:builds].where(app_name: params[:name])
+      builds = World.db[:builds].where(app_name: params[:name])
 
       respond_to(params[:format], :show, { builds: builds })
     end
