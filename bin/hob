@@ -4,11 +4,25 @@ require 'rack'
 require 'slop'
 require_relative './../lib/hob'
 
+cli_options = Slop.parse(help: true) do
+  banner 'Hob - deployent tool'
+  on 'start', 'Start daemon'
+  on 'stop', 'Stop daemon'
+  on 'migrate', 'Migrate database'
+end
+
+cli_hash = cli_options.to_hash
+
+Hob::Tasks.migrate if cli_hash[:migrate]
+Hob::Tasks.stop if cli_hash[:stop]
+Hob::Tasks.start if cli_hash[:start]
+
 default_options = {
   port: 8081,
   db_uri: 'sqlite://var/run/hob.sqlite',
   server: :webrick,
-  pid_file: './hob.pid'
+  pid_file: './hob.pid',
+  root_path: File.dirname(__FILE__)
 }
 
 user_options = YAML::load(File.open('/etc/hob.yml')) rescue {}
@@ -16,5 +30,3 @@ user_options = YAML::load(File.open('/etc/hob.yml')) rescue {}
 options = default_options.merge(user_options)
 
 Hob::World.setup(options)
-
-Rack::Server.start({ :app => Hob::Web, :Port => options[:port], :server => options[:server], :pid => options[:pid_file] })
