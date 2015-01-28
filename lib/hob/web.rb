@@ -1,5 +1,7 @@
 module Hob
   class Web < Sinatra::Base
+
+    # List apps
     get '/' do
 
     end
