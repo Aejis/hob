@@ -1,0 +1,35 @@
+<form action="/apps/create" method="POST">
+    <fieldset>
+        <div class="form-group">
+            <label>Application Name</label>
+            <input type="text" name="name">
+        </div>
+        <div class="form-group">
+            <label>Git Repo</label>
+            <input type="text" name="repo">
+        </div>
+      <div class="form-group">
+        <label>Git Branch</label>
+        <input type="text" name="branch">
+      </div>
+      <div class="form-group">
+        <label>Ruby Version</label>
+        <select name="ruby_version">
+          <option>ruby-2.2.0</option>
+          <option>ruby-2.2.0</option>
+          <option>ruby-2.2.0</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Prepare commands</label>
+        <textarea rows="3" name="prepare_commands">
+        </textarea>
+      </div>
+      <div class="form-group">
+        <label>Run commands</label>
+        <textarea rows="3" name="run_commands">
+        </textarea>
+      </div>
+    </fieldset>
+    <button type="submit">Submit</button>
+</form>
