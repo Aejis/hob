@@ -1,2 +1,20 @@
 #!/usr/bin/env ruby
+require 'yaml'
+require 'rack'
+require 'slop'
+require_relative './../lib/hob'
 
+default_options = {
+  port: 8081,
+  db_uri: 'sqlite://var/run/hob.sqlite',
+  server: :webrick,
+  pid_file: './hob.pid'
+}
+
+user_options = YAML::load(File.open('/etc/hob.yml')) rescue {}
+
+options = default_options.merge(user_options)
+
+Hob::World.setup(options)
+
+Rack::Server.start({ :app => Hob::Web, :Port => options[:port], :server => options[:server], :pid => options[:pid_file] })
