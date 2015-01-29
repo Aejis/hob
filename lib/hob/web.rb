@@ -19,7 +19,9 @@ module Hob
     # - run_commands
     #
     get '/apps/create' do
-      erb(:create)
+      ruby_versions = RVM.current.list_strings rescue []
+
+      erb(:create, ruby_versions: ruby_versions)
     end
 
     post '/apps/.?:format?' do

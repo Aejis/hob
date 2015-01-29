@@ -2,7 +2,7 @@
 require 'yaml'
 require 'rack'
 require 'slop'
-require_relative './../lib/hob'
+require 'hob'
 
 cli_options = Slop.parse(help: true) do
   banner 'Hob - deployent tool'

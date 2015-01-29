@@ -21,4 +21,5 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency('sequel')
   spec.add_runtime_dependency('daemons')
   spec.add_runtime_dependency('slop')
+  spec.add_runtime_dependency('rvm')
 end
