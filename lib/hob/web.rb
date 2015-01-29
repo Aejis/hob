@@ -21,7 +21,7 @@ module Hob
     get '/apps/create' do
       ruby_versions = []
 
-      erb(:create, ruby_versions: ruby_versions)
+      erb(:create, locals: { ruby_versions: ruby_versions })
     end
 
     post '/apps/.?:format?' do

@@ -6,7 +6,7 @@ module Hob
         Process.daemon(true)
         # daemonize read this https://github.com/rack/rack/blob/master/lib/rack/server.rb#L166
         # not work
-        Rack::Server.start({ :app => Hob::Web, :Port => World.port, :server => World.server, :pid => World.pid })
+        Rack::Server.start({ :app => Web, :Port => World.port, :server => World.server, :pid => World.pid })
       end
 
       def stop
