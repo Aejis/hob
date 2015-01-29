@@ -38,10 +38,9 @@ module Hob
       exports ||= {}
       old_path = ENV["PATH"]
 
-      ruby_root = File.join(rubies_path, "ruby-#{version}/bin") if version
-      ruby_root ||= `which ruby`
+      ruby_root = version ? File.join(rubies_path, "ruby-#{version}/bin") : nil
 
-      ENV["PATH"] = ruby_root + ':' + ENV["PATH"]
+      ENV["PATH"] = ruby_root + ':' + ENV["PATH"] if ruby_root
       exports.each { |k, v| ENV[k] = v }
 
       yield
