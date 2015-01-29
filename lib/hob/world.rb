@@ -21,7 +21,7 @@ module Hob
 
     attr_reader :root_path
 
-    attr_reader :db
+    attr_reader :db_uri
 
     attr_reader :port
 
@@ -33,7 +33,7 @@ module Hob
 
     def initialize(options)
       @root_path = Pathname.new(options[:root_path])
-      @db = Sequel.connect(options[:db])
+      @db = Sequel.connect(options[:db_uri])
       @port   = options[:port]
       @pid    = options[:pid_file]
       @server = options[:server]
