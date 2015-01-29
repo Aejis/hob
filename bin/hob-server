@@ -3,6 +3,7 @@ require 'yaml'
 require 'rack'
 require 'slop'
 require 'hob'
+require 'hob/tasks'
 
 slop_options = Slop::Options.new
 
