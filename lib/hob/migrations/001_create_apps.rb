@@ -1,9 +1,7 @@
 Sequel.migration do
   up do
     create_table(:apps) do
-      primary_key :id
-
-      column :name,             String, null: false
+      column :name,             String, null: false, primary_key: true
       column :repo,             String, null: false
       column :branch,           String, null: false
       column :ruby_version,     String, null: false

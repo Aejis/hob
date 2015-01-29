@@ -19,7 +19,7 @@ module Hob
     # - run_commands
     #
     get '/apps/create' do
-      ruby_versions = RVM.current.list_strings rescue []
+      ruby_versions = []
 
       erb(:create, ruby_versions: ruby_versions)
     end
@@ -32,9 +32,9 @@ module Hob
 
     # Show app
     get '/apps/:name.?:format?' do
-      builds = World.db[:builds].where(app_name: params[:name])
+      app = Application.new(params[:name])
 
-      respond_to(params[:format], :show, { builds: builds })
+      respond_to(params[:format], :show, { builds: app.builds })
     end
 
     # Restart app

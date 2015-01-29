@@ -5,8 +5,10 @@ module Hob
     @mutex = Mutex.new
 
     class << self
+      attr_reader :mutex
+
       def setup(options)
-        @mutex.synchronize do
+        mutex.synchronize do
           @instance ||= new(options)
         end
       end
@@ -21,19 +23,22 @@ module Hob
 
     attr_reader :root_path
 
-    attr_reader :db
-
     attr_reader :port
 
     attr_reader :server
 
     attr_reader :pid
 
+    def db
+      self.class.mutex.synchronize do
+        @db ||= Sequel.connect(options[:db])
+      end
+    end
+
   private
 
     def initialize(options)
       @root_path = Pathname.new(options[:root_path])
-      @db = Sequel.connect(options[:db])
       @port   = options[:port]
       @pid    = options[:pid_file]
       @server = options[:server]

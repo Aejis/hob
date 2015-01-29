@@ -3,7 +3,9 @@ require 'open3'
 module Hob
   class Command
     attr_reader :status
+
     attr_reader :success_log
+
     attr_reader :fail_log
 
     def initialize(command, dir)

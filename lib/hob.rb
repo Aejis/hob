@@ -4,5 +4,7 @@ require 'rvm'
 module Hob
 end
 
-require_relative 'hob/web'
-require_relative 'hob/world'
+require 'hob/web'
+require 'hob/world'
+require 'hob/application/paths'
+require 'hob/application'
