@@ -23,6 +23,8 @@ module Hob
 
     attr_reader :root_path
 
+    attr_reader :db_uri
+
     attr_reader :port
 
     attr_reader :server
@@ -31,7 +33,7 @@ module Hob
 
     def db
       self.class.mutex.synchronize do
-        @db ||= Sequel.connect(options[:db])
+        @db ||= Sequel.connect(options[:db_uri])
       end
     end
 

@@ -1,0 +1,40 @@
+#!/usr/bin/env ruby
+require 'yaml'
+require 'rack'
+require 'slop'
+require 'hob'
+
+slop_options = Slop::Options.new
+
+cli_options = Slop.parse do |opts|
+  opts.separator 'Hob - Aejis deployment tool'
+  opts.bool 'stop', 'stop server'
+  opts.bool 'start', 'start server'
+  opts.bool 'migrate', 'migrate server'
+  opts.on '-v', '--version', 'print version' do
+    puts Slop::VERSION
+    exit
+  end
+end
+
+cli_hash = cli_options.to_hash
+
+default_options = {
+  port: 8081,
+  db_uri: 'sqlite://var/run/hob.sqlite',
+  server: :webrick,
+  pid_file: './hob.pid',
+  root_path: File.dirname(__FILE__)
+}
+
+user_options = YAML::load(File.open('/etc/hob.yml')) rescue {}
+
+options = default_options.merge(user_options)
+
+Hob::World.setup(options)
+
+Hob::Tasks.migrate if cli_hash[:migrate]
+Hob::Tasks.stop if cli_hash[:stop]
+Hob::Tasks.start if cli_hash[:start]
+
+puts cli_options
