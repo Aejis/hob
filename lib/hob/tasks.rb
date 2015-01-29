@@ -2,16 +2,17 @@ module Hob
   class Tasks
     class << self
       def start
-        p 'run start'
+        puts "Start hob-server on port #{ World.port }"
         Process.daemon(true)
-        # daemonize read this https://github.com/rack/rack/blob/master/lib/rack/server.rb#L166
-        # not work
+
         Rack::Server.start({ :app => Web, :Port => World.port, :server => World.server, :pid => World.pid })
       end
 
       def stop
-        p 'run stop'
-        # stop code here
+        pid = %x{cat #{ World.pid }}.to_i
+        puts "Stop hob-server with pid #{ pid }"
+        Process.kill(15, %x{cat #{ World.pid }}.to_i)
+        puts 'done'
         exit
       end
 

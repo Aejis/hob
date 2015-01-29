@@ -23,7 +23,7 @@ cli_hash = cli_options.to_hash
 
 default_options = {
   port: 8081,
-  db_uri: 'sqlite://var/run/hob.sqlite',
+  db_uri: 'sqlite://var/lib/hob/hob.sqlite',
   server: :webrick,
   pid_file: './hob.pid',
   root_path: File.dirname(__FILE__)
