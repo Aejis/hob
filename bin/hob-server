@@ -11,6 +11,7 @@ cli_options = Slop.parse do |opts|
   opts.bool 'stop', 'stop server'
   opts.bool 'start', 'start server'
   opts.bool 'migrate', 'migrate server'
+  opts.string '-c', 'path to *.yml config file'
   opts.on '-v', '--version', 'print version' do
     puts Slop::VERSION
     exit
@@ -27,7 +28,7 @@ default_options = {
   root_path: File.dirname(__FILE__)
 }
 
-user_options = YAML::load(File.open('/etc/hob.yml')) rescue {}
+user_options = YAML::load(File.open(cli_hash[:c] || '/etc/hob.yml')) rescue {}
 
 options = default_options.merge(user_options)
 
