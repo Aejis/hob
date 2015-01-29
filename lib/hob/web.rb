@@ -2,10 +2,10 @@ module Hob
   class Web < Sinatra::Base
 
     # List apps
-    get '/' do
+    get '/apps.?:format?' do
       apps = World.db[:apps].all
 
-      respond_to(params[:format], :list, apps: apps)
+      respond_to(params[:format], :app_list, apps: apps)
     end
 
     # Create
@@ -19,22 +19,32 @@ module Hob
     # - run_commands
     #
     get '/apps/create' do
-      ruby_versions = []
+      ruby = Lang::Ruby.new
 
-      erb(:create, locals: { ruby_versions: ruby_versions })
+      erb(:app_create, locals: { ruby_versions: ruby.versions })
     end
 
     post '/apps/.?:format?' do
-      created = World.db[:apps].insert(restrict(params))
+      app = ::Hob::App.new(params[:name], params)
+      created = ::Hob::App::Create.new(app).call
 
-      respond_to(params[:format], :created, created: created)
+      if params[:format] == 'json'
+        JSON.dump(created)
+      else
+        redirect to("/apps/#{app.name}")
+      end
     end
 
     # Show app
     get '/apps/:name.?:format?' do
-      app = Application.new(params[:name])
+      app = App.new(params[:name])
 
-      respond_to(params[:format], :show, { builds: app.builds })
+      respond_to(params[:format], :app_show, { app: app })
+    end
+
+    # Deploy app
+    put '/apps/:name.?:format?' do
+      app = App.new(params[:name])
     end
 
     # Restart app
@@ -59,17 +69,11 @@ module Hob
 
   private
 
-    ALLOWED_FIELDS = Set[:name, :repo, :branch, :ruby_version, :prepare_commands, :run_commands].freeze
-
-    def restrict(params)
-      params.keep_if { |k, _| ALLOWED_FIELDS.include?(k) }
-    end
-
     def respond_to(format, template, locals)
       if format == 'json'
         JSON.dump(locals)
       else
-        erb(template, locals)
+        erb(template, locals: locals)
       end
     end
 

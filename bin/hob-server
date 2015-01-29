@@ -14,7 +14,7 @@ cli_options = Slop.parse do |opts|
   opts.bool 'migrate', 'migrate server'
   opts.string '-c', 'path to *.yml config file'
   opts.on '-v', '--version', 'print version' do
-    puts Slop::VERSION
+    puts Hob::VERSION::String
     exit
   end
 end
@@ -36,7 +36,7 @@ options = default_options.merge(user_options)
 Hob::World.setup(options)
 
 Hob::Tasks.migrate if cli_hash[:migrate]
-Hob::Tasks.stop if cli_hash[:stop]
-Hob::Tasks.start if cli_hash[:start]
+Hob::Tasks.stop    if cli_hash[:stop]
+Hob::Tasks.start   if cli_hash[:start]
 
 puts cli_options

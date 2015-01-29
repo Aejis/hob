@@ -1,4 +1,5 @@
 require 'sinatra'
+require 'json'
 require 'rvm'
 require 'sequel'
 require 'sqlite3'
@@ -6,7 +7,10 @@ require 'sqlite3'
 module Hob
 end
 
-require 'hob/web'
 require 'hob/world'
-require 'hob/application/paths'
-require 'hob/application'
+require 'hob/command'
+require 'hob/app/paths'
+require 'hob/app/create'
+require 'hob/app'
+require 'hob/lang/ruby'
+require 'hob/web'

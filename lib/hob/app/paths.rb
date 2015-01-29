@@ -1,5 +1,5 @@
 module Hob
-  class Application
+  class App
 
     ##
     # Class: application paths

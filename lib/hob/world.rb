@@ -33,7 +33,7 @@ module Hob
 
     def db
       self.class.mutex.synchronize do
-        @db ||= Sequel.connect(options[:db_uri])
+        @db ||= Sequel.connect(@db_uri)
       end
     end
 
@@ -44,6 +44,7 @@ module Hob
       @port   = options[:port]
       @pid    = options[:pid_file]
       @server = options[:server]
+      @db_uri = options[:db_uri]
     end
   end
 end

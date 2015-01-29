@@ -8,16 +8,8 @@ module Hob
 
     attr_reader :fail_log
 
-    def initialize(command, dir, params)
-      @command = command
-
-      @options = {
-        chdir: dir
-      }
-
-      run_in_env(params[:rubies_path], params[:version], params[:exports]) do
-        run_command
-      end
+    def log
+      [success_log, fail_log].join("\n")
     end
 
     def run_command
@@ -32,21 +24,15 @@ module Hob
       end
     end
 
-    private
+  private
 
-    def run_in_env(rubies_path, version, exports)
-      exports ||= {}
-      old_path = ENV["PATH"]
+    def initialize(command, dir=nil)
+      @command = command
+      @options = {}
+      @options[chdir] = dir if dir
 
-      ruby_root = version ? File.join(rubies_path, "ruby-#{version}/bin") : nil
-
-      ENV["PATH"] = ruby_root + ':' + ENV["PATH"] if ruby_root
-      exports.each { |k, v| ENV[k] = v }
-
-      yield
-
-      ENV["PATH"] = old_path
-      exports.each { |k, _| ENV[k] = nil }
+      run_command
     end
+
   end
 end
