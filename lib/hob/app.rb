@@ -49,7 +49,12 @@ module Hob
     ##
     # Commands required to run application
     #
-    attr_reader :run_commands
+    attr_reader :start_commands
+
+    ##
+    # Commands required to stop application
+    #
+    attr_reader :stop_commands
 
     ##
     # Application params hash
@@ -72,7 +77,7 @@ module Hob
 
   private
 
-    ALLOWED_FIELDS = Set[:name, :repo, :branch, :ruby_version, :prepare_commands, :run_commands].freeze
+    ALLOWED_FIELDS = Set[:name, :repo, :branch, :ruby_version, :prepare_commands, :start_commands, :stop_commands].freeze
 
     ##
     # Constructor
@@ -89,7 +94,8 @@ module Hob
       @repo         = @params[:repo]
       @branch       = @params[:branch]
       @ruby_version = @params[:ruby_version]
-      @run_commands = @params[:run_commands]
+      @start_commands = @params[:start_commands]
+      @stop_commands  = @params[:stop_commands]
       @prepare_commands = @params[:prepare_commands]
     end
 

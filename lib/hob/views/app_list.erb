@@ -1,5 +1,11 @@
 <ul>
 <% apps.each do |app| %>
-    <li><a href="/apps/<%= app[:name] %>"><%= app[:name] %></a></li>
+    <li>
+        <a href="/apps/<%= app[:name] %>"><%= app[:name] %></a>
+        <form action="/apps/<%= app[:name] %>" method="post">
+            <input type="hidden" name="_method" value="PUT">
+            <button>Deploy</button>
+        </form>
+    </li>
 <% end %>
 </ul>

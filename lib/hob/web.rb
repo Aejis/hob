@@ -17,7 +17,8 @@ module Hob
     # - branch
     # - ruby_version
     # - prepare_commands
-    # - run_commands
+    # - start_commands
+    # - stop_commands
     #
     get '/apps/create' do
       ruby = Lang::Ruby.new
@@ -42,6 +43,11 @@ module Hob
     # Deploy app
     put '/apps/:name.?:format?' do
       app = App.new(params[:name])
+
+      deploy = App::Deploy.new(app)
+      deploy.call
+
+      respond_to(params[:format], :app_deploy_show, { deploy: deploy })
     end
 
     # Get env variables for app

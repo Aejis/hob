@@ -6,7 +6,8 @@ Sequel.migration do
       column :branch,           String, null: false
       column :ruby_version,     String, null: false
       column :prepare_commands, String,              text: true
-      column :run_commands,     String, null: false, text: true
+      column :start_commands,   String, null: false, text: true
+      column :stop_commands,    String, null: false, text: true
     end
   end
 

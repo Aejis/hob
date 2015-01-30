@@ -41,6 +41,10 @@ module Hob
       #
       attr_reader :current
 
+      def release(rev)
+        releases.join(rev)
+      end
+
       ##
       # Real current release folder
       #

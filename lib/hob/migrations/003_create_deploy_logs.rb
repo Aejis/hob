@@ -3,7 +3,6 @@ Sequel.migration do
     create_table(:deploy_logs) do
       primary_key :id
 
-      column :order,        Integer, null: false
       column :command,      String,               text: true
       column :status,       Integer, null: false
       column :elapsed_time, Float,   null: false

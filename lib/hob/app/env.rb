@@ -47,9 +47,11 @@ module Hob
           ENV[k] = v
         end
 
-        yield
-
-        keys.each { |k| ENV.delete(k) }
+        begin
+          yield
+        ensure
+          keys.each { |k| ENV.delete(k) }
+        end
       end
 
       ##
