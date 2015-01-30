@@ -1,5 +1,5 @@
 <ul>
 <% apps.each do |app| %>
-    <li><%= app[:name] %></li>
+    <li><a href="/apps/<%= app[:name] %>"><%= app[:name] %></a></li>
 <% end %>
 </ul>

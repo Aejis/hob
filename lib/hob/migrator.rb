@@ -1,5 +1,5 @@
-require 'pathname'
 require 'sequel'
+require 'sqlite3'
 
 module Hob
   class Migrator

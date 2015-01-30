@@ -1,5 +1,6 @@
 module Hob
   class Web < Sinatra::Base
+    use Rack::MethodOverride
 
     # List apps
     get '/apps.?:format?' do
@@ -28,11 +29,7 @@ module Hob
       app = ::Hob::App.new(params[:name], params)
       created = ::Hob::App::Create.new(app).call
 
-      if params[:format] == 'json'
-        JSON.dump(created)
-      else
-        redirect to("/apps/#{app.name}")
-      end
+      respond_or_redirect(params[:format], "/apps/#{app.name}", created)
     end
 
     # Show app
@@ -45,6 +42,35 @@ module Hob
     # Deploy app
     put '/apps/:name.?:format?' do
       app = App.new(params[:name])
+    end
+
+    # Get env variables for app
+    get '/apps/:name/envs.?:format?' do
+      app = App.new(params[:name])
+
+      respond_to(params[:format], :app_env_show, { name: app.name, env: app.env })
+    end
+
+    # Create env variable
+    post '/apps/:name/envs.?:format?' do
+      app = App.new(params[:name])
+      app.env[params[:key]] = params[:value]
+
+      respond_or_redirect(params[:format], "/apps/#{params[:name]}/envs", { key: params[:key], value: params[:value] })
+    end
+
+    patch '/apps/:name/envs.?:format?' do
+      app = App.new(params[:name])
+      app.env.update(params[:oldkey], params[:key], params[:value])
+
+      respond_or_redirect(params[:format], "/apps/#{params[:name]}/envs", { key: params[:key], value: params[:value] })
+    end
+
+    delete '/apps/:name/envs.?:format?' do
+      app = App.new(params[:name])
+      deleted = app.env.delete(params[:key])
+
+      respond_or_redirect(params[:format], "/apps/#{params[:name]}/envs", deleted)
     end
 
     # Restart app
@@ -74,6 +100,14 @@ module Hob
         JSON.dump(locals)
       else
         erb(template, locals: locals)
+      end
+    end
+
+    def respond_or_redirect(format, path, data)
+      if format == 'json'
+        JSON.dump(data)
+      else
+        redirect to(path)
       end
     end
 

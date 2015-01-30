@@ -5,7 +5,7 @@ require 'hob/version'
 Gem::Specification.new do |spec|
   spec.name          = 'hob'
   spec.version       = Hob::VERSION::String
-  spec.authors       = ['Andrey Savchenko']
+  spec.authors       = ['Andrey Savchenko', 'Denis Sergienko', 'Ihor Kroosh']
   spec.email         = ['andrey@aejis.eu']
   spec.summary       = %q{Hob the deployer}
   spec.description   = %q{Hob the deployer}
@@ -20,7 +20,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency('sinatra')
   spec.add_runtime_dependency('sequel')
   spec.add_runtime_dependency('daemons')
-  spec.add_runtime_dependency('slop')
+  spec.add_runtime_dependency('thor')
   spec.add_runtime_dependency('rvm')
   spec.add_runtime_dependency('sqlite3')
 end

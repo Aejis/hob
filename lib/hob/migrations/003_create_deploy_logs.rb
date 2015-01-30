@@ -9,7 +9,7 @@ Sequel.migration do
       column :elapsed_time, Float,   null: false
       column :log,          String,               text: true
 
-      foreign_key :deploy_id,   :deployes
+      foreign_key :deploy_id, :deploys
     end
   end
 

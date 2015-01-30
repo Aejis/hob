@@ -1,0 +1,25 @@
+<ul>
+    <% env.each do |key, value| %>
+        <li>
+            <form action="/apps/<%= name %>/envs" method="post" style="display: inline-block;">
+                <input type="hidden" name="_method" value="PATCH">
+                <input type="hidden" name="oldkey" value="<%= key %>">
+                <input type="text" name="key" value="<%= key %>">
+                =
+                <input type="text" name="value" value="<%= value %>">
+                <button>Update</button>
+            </form>
+            <form action="/apps/<%= name %>/envs" method="post" style="display: inline-block;">
+                <input type="hidden" name="_method" value="DELETE">
+                <input type="hidden" name="key" value="<%= key %>">
+                <button>x</button>
+            </form>
+        </li>
+    <% end %>
+    <li>
+        <form action="/apps/<%= name %>/envs" method="post">
+            <input type="text" name="key">&nbsp;=&nbsp;<input type="text" name="value">
+            <button>Add</button>
+        </form>
+    </li>
+</ul>

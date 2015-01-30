@@ -21,6 +21,12 @@ module Hob
     attr_reader :paths
 
     ##
+    # Application env variables
+    #
+    # Returns: {Hob::App::Env}
+    attr_reader :env
+
+    ##
     # Git repository
     #
     attr_reader :repo
@@ -51,6 +57,13 @@ module Hob
     attr_reader :params
 
     ##
+    # Serialize for JSON
+    #
+    def to_json(*)
+      JSON.dump(params)
+    end
+
+    ##
     # Get list of builds
     #
     def builds
@@ -70,6 +83,7 @@ module Hob
     def initialize(name, params=nil)
       @name   = name.to_sym
       @paths  = Paths.new(Hob::World.root_path.join(APPS_DIR, name))
+      @env    = Env.new(name)
       @params = restrict(params || World.db[:apps][name: name])
 
       @repo         = @params[:repo]

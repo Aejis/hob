@@ -1,6 +1,6 @@
 Sequel.migration do
   up do
-    create_table(:deployes) do
+    create_table(:deploys) do
       primary_key :id
 
       column :app_name,     String,    null: false
@@ -13,6 +13,6 @@ Sequel.migration do
   end
 
   down do
-    drop_table(:deployes)
+    drop_table(:deploys)
   end
 end
