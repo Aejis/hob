@@ -21,6 +21,8 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency('sequel')
   spec.add_runtime_dependency('daemons')
   spec.add_runtime_dependency('thor')
-  spec.add_runtime_dependency('rvm')
+  spec.add_runtime_dependency('warden')
+  spec.add_runtime_dependency('bcrypt')
   spec.add_runtime_dependency('sqlite3')
+  spec.add_runtime_dependency('mustermann')
 end

@@ -1,5 +1,7 @@
 require 'pathname'
 
+require 'sequel'
+
 module Hob
   class World
     @mutex = Mutex.new
@@ -31,6 +33,8 @@ module Hob
 
     attr_reader :pid
 
+    attr_reader :github_options
+
     def db
       self.class.mutex.synchronize do
         @db ||= Sequel.connect(@db_uri)
@@ -45,6 +49,10 @@ module Hob
       @pid    = options[:pid_file]
       @server = options[:server]
       @db_uri = options[:db_uri]
+      @github_options = {
+        client_id: options[:github][:client_id],
+        secret: options[:github][:secret]
+      }
     end
   end
 end

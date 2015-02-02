@@ -19,10 +19,10 @@ module Hob
       def create_filesystem
         paths = app.paths
 
-        FileUtils.mkdir(paths.root)
-        FileUtils.mkdir(paths.repo)
-        FileUtils.mkdir(paths.shared)
-        FileUtils.mkdir(paths.releases)
+        FileUtils.mkdir_p(paths.root)
+        FileUtils.mkdir_p(paths.repo)
+        FileUtils.mkdir_p(paths.shared)
+        FileUtils.mkdir_p(paths.releases)
       end
 
       def clone_repo

@@ -20,3 +20,18 @@
     <dt>Stop commands:</dt>
     <dd><%= app.stop_commands %></dd>
 </dl>
+
+<a href="/apps/<%= app.name %>/envs">Edit application environment</a>
+
+<form action="/apps/<%= app.name %>/start" method="post">
+    <button>Start</button>
+</form>
+
+<form action="/apps/<%= app.name %>/stop" method="post">
+    <button>Stop</button>
+</form>
+
+<form action="/apps/<%= app.name %>" method="post">
+    <input type="hidden" name="_method" value="PUT">
+    <button>Deploy</button>
+</form>

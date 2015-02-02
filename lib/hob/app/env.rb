@@ -1,7 +1,7 @@
 module Hob
   class App
     class Env
-      attr_reader :app_name
+      attr_reader :app
 
       ##
       # Get env variable
@@ -18,16 +18,16 @@ module Hob
         if record = get(key)
           record.update(value: val)
         else
-          World.db[:app_envs].insert(app_name: app_name, key: key.upcase, value: val)
+          db.insert(app_name: @app_name, key: key.upcase, value: val)
         end
       end
 
       def update(oldkey, newkey, value)
-        World.db[:app_envs].where(app_name: app_name, key: oldkey).update(key: newkey, value: value)
+        db.where(app_name: @app_name, key: oldkey).update(key: newkey, value: value)
       end
 
       def delete(key)
-        World.db[:app_envs].where(app_name: app_name, key: key).delete
+        db.where(app_name: @app_name, key: key).delete
       end
 
       ##
@@ -35,7 +35,7 @@ module Hob
       #
       def each(&block)
         return enum_for(:each) unless block_given?
-        all.each do |env|
+        predefined.concat(user).each do |env|
           block.call(env[:key], env[:value])
         end
       end
@@ -54,22 +54,43 @@ module Hob
         end
       end
 
+      def predefined
+        [
+          { key: 'APP_ROOT_DIR',    value: app.paths.root.to_s },
+          { key: 'APP_CURRENT_DIR', value: app.paths.current.to_s }
+        ]
+      end
+
+      def to_json
+        {
+          app_name: @app_name,
+          predefined: predefined,
+          user: user
+        }
+      end
+
       ##
-      # Get all env variables
+      # Get user defined env variables
       #
-      def all
-        World.db[:app_envs].where(app_name: app_name)
+      def user
+        db.where(app_name: @app_name).all
       end
 
     private
 
-      def initialize(app_name)
-        @app_name = app_name
+      def initialize(app)
+        @app = app
+        @app_name = app.name.to_s
+      end
+
+      def db
+        World.db[:app_envs]
       end
 
       def get(key)
-        World.db[:app_envs][app_name: app_name, key: key.upcase]
+        db[app_name: @app_name, key: key.upcase]
       end
+
     end
   end
 end

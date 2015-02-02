@@ -1,0 +1,25 @@
+<dl>
+    <dt>App</dt>
+    <dd><%= action.app.name %></dd>
+
+    <dt>Revision</dt>
+    <dd><%= action.result[:revision] %></dd>
+
+    <dt>Requested by</dt>
+    <dd><%= action.result[:requested_by] %></dd>
+
+    <dt>Successful</dt>
+    <dd><%= action.result[:is_success] ? 'Yes' : 'No' %></dd>
+
+    <dt>Elapsed time</dt>
+    <dd><%= action.result[:elapsed_time] %></dd>
+</dl>
+
+<ul>
+    <% action.logs.each do |log| %>
+    <li>
+        <strong><%= log[:command] %></strong>
+        <%= log[:log] %>
+    </li>
+    <% end %>
+</ul>

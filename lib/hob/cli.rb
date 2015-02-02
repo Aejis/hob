@@ -39,6 +39,22 @@ module Hob
       Hob::Migrator.migrate
     end
 
+    desc 'add_admin', 'Add admin user'
+    def add_admin
+      require 'hob/world'
+      require 'hob/user'
+
+      Hob::World.setup(make_opts)
+
+      login = ask('User name')
+      pass  = ask('User password', :echo => false)
+
+      user = Hob::User.new(login: login, password: pass)
+      user.admin!
+      user.approve!
+      user.persist!
+    end
+
     desc 'version', 'Show version'
     def version
       puts Hob::VERSION::String
@@ -52,7 +68,8 @@ module Hob
         port:      port,
         db_uri:    db_uri,
         server:    server,
-        pid_file:  pid_file
+        pid_file:  pid_file,
+        github:    config[:github]
       }
     end
 

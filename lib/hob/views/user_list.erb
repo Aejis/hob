@@ -1,0 +1,10 @@
+<ul>
+<% users.each do |user| %>
+    <li>
+        <%= user[:login] %> - <%= user[:name] %>
+        <% if !user[:approved] %>
+            <form action="/users/:id/approve" method="POST" style="display: inline-block"><button>Approve</button></form>
+        <% end %>
+    </li>
+<% end %>
+</ul>

@@ -1,23 +1,28 @@
 <ul>
-    <% env.each do |key, value| %>
+    <% environment.predefined.each do |env| %>
+        <li class="system">
+            <%= env[:key] %> = <%= env[:value] %>
+        </li>
+    <% end %>
+    <% environment.user.each do |env| %>
         <li>
-            <form action="/apps/<%= name %>/envs" method="post" style="display: inline-block;">
+            <form action="/apps/<%= environment.app.name.to_s %>/envs" method="post" style="display: inline-block;">
                 <input type="hidden" name="_method" value="PATCH">
-                <input type="hidden" name="oldkey" value="<%= key %>">
-                <input type="text" name="key" value="<%= key %>">
+                <input type="hidden" name="oldkey" value="<%= env[:key] %>">
+                <input type="text" name="key" value="<%= env[:key] %>">
                 =
-                <input type="text" name="value" value="<%= value %>">
+                <input type="text" name="value" value="<%= env[:value] %>">
                 <button>Update</button>
             </form>
-            <form action="/apps/<%= name %>/envs" method="post" style="display: inline-block;">
+            <form action="/apps/<%= environment.app.name.to_s %>/envs" method="post" style="display: inline-block;">
                 <input type="hidden" name="_method" value="DELETE">
-                <input type="hidden" name="key" value="<%= key %>">
+                <input type="hidden" name="key" value="<%= env[:key] %>">
                 <button>x</button>
             </form>
         </li>
     <% end %>
     <li>
-        <form action="/apps/<%= name %>/envs" method="post">
+        <form action="/apps/<%= environment.app.name.to_s %>/envs" method="post">
             <input type="text" name="key">&nbsp;=&nbsp;<input type="text" name="value">
             <button>Add</button>
         </form>

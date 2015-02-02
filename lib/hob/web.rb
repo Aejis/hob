@@ -1,12 +1,64 @@
+require 'mustermann'
+require 'hob/warden'
+
 module Hob
   class Web < Sinatra::Base
     use Rack::MethodOverride
 
-    # List apps
-    get '/apps.?:format?' do
-      apps = World.db[:apps].all
+    register Mustermann
 
-      respond_to(params[:format], :app_list, apps: apps)
+    enable :sessions
+
+    use ::Warden::Manager do |manager|
+      manager.default_strategies(:password)
+      manager.failure_app = ::Hob::Web
+
+      manager.serialize_into_session { |u| u.id }
+      manager.serialize_from_session { |id| User.fetch(id) }
+    end
+
+    helpers Warden::Helpers
+
+    get '/login' do
+      erb(:login)
+    end
+
+    get '/register' do
+      erb(:register)
+    end
+
+    post '/login' do
+      warden.authenticate!
+
+      redirect to('/apps')
+    end
+
+    post '/register' do
+      user = User.new(@params)
+      user.persist!
+
+      redirect to('/login')
+    end
+
+    get '/unauthenticated' do
+      redirect to('/login')
+    end
+
+    get '/users/?(.:format)?' do
+      users = World.db[:users].all
+
+      respond_to(params[:format], :user_list, { users: users })
+    end
+
+    post '/users/:id/approve/?(.:format)?' do
+      authorize_admin!
+
+      user = User.fetch(id)
+
+      user.approve!
+      user.persist!
+
+      redirect to('/users')
     end
 
     # Create
@@ -21,58 +73,65 @@ module Hob
     # - stop_commands
     #
     get '/apps/create' do
+      authorize!
+
       ruby = Lang::Ruby.new
 
       erb(:app_create, locals: { ruby_versions: ruby.versions })
     end
 
-    post '/apps/.?:format?' do
+    post '/apps/?(.:format)?' do
+      authorize!
+
       app = ::Hob::App.new(params[:name], params)
       created = ::Hob::App::Create.new(app).call
 
       respond_or_redirect(params[:format], "/apps/#{app.name}", created)
     end
 
-    # Show app
-    get '/apps/:name.?:format?' do
-      app = App.new(params[:name])
-
-      respond_to(params[:format], :app_show, { app: app })
-    end
-
     # Deploy app
-    put '/apps/:name.?:format?' do
+    put '/apps/:name/?(.:format)?' do
+      authorize!
+
       app = App.new(params[:name])
 
-      deploy = App::Deploy.new(app)
-      deploy.call
+      action = App::Action.new(app, current_user)
+      action.deploy
 
-      respond_to(params[:format], :app_deploy_show, { deploy: deploy })
+      respond_to(params[:format], :app_action_show, { action: action })
     end
 
     # Get env variables for app
-    get '/apps/:name/envs.?:format?' do
+    get '/apps/:name/envs/?(.:format)?' do
+      authorize!
+
       app = App.new(params[:name])
 
-      respond_to(params[:format], :app_env_show, { name: app.name, env: app.env })
+      respond_to(params[:format], :app_env_show, { environment: app.env })
     end
 
     # Create env variable
-    post '/apps/:name/envs.?:format?' do
+    post '/apps/:name/envs/?(.:format)?' do
+      authorize!
+
       app = App.new(params[:name])
       app.env[params[:key]] = params[:value]
 
       respond_or_redirect(params[:format], "/apps/#{params[:name]}/envs", { key: params[:key], value: params[:value] })
     end
 
-    patch '/apps/:name/envs.?:format?' do
+    patch '/apps/:name/envs/?(.:format)?' do
+      authorize!
+
       app = App.new(params[:name])
       app.env.update(params[:oldkey], params[:key], params[:value])
 
       respond_or_redirect(params[:format], "/apps/#{params[:name]}/envs", { key: params[:key], value: params[:value] })
     end
 
-    delete '/apps/:name/envs.?:format?' do
+    delete '/apps/:name/envs/?(.:format)?' do
+      authorize!
+
       app = App.new(params[:name])
       deleted = app.env.delete(params[:key])
 
@@ -80,23 +139,54 @@ module Hob
     end
 
     # Restart app
-    get '/apps/:name/restart.?:format?' do
-
+    get '/apps/:name/restart/?(.:format)?' do
+      authorize!
     end
 
     # Stop app
-    get '/apps/:name/stop.?:format?' do
+    post '/apps/:name/stop/?(.:format)?' do
+      authorize!
 
+      app = App.new(params[:name])
+
+      action = App::Action.new(app, current_user)
+      action.stop
+
+      respond_to(params[:format], :app_action_show, { action: action })
     end
 
     # Start app
-    get '/apps/:name/start.?:format?' do
+    post '/apps/:name/start/?(.:format)?' do
+      authorize!
 
+      app = App.new(params[:name])
+
+      action = App::Action.new(app, current_user)
+      action.start
+
+      respond_to(params[:format], :app_action_show, { action: action })
     end
 
-    # Show build
-    get '/apps/:name/build/:id.?:format?' do
+    # Show action log
+    get '/apps/:name/action/:id/?(.:format)?' do
+      authorize!
+    end
 
+    # Show app
+    get '/apps/:name/?(.:format)?' do
+      authorize!
+
+      app = App.new(params[:name])
+
+      respond_to(params[:format], :app_show, { app: app })
+    end
+
+    # List apps
+    get '/apps/?(.:format)?' do
+      authorize!
+      apps = World.db[:apps].all
+
+      respond_to(params[:format], :app_list, apps: apps)
     end
 
   private

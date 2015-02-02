@@ -88,7 +88,7 @@ module Hob
     def initialize(name, params=nil)
       @name   = name.to_sym
       @paths  = Paths.new(Hob::World.root_path.join(APPS_DIR, name))
-      @env    = Env.new(name)
+      @env    = Env.new(self)
       @params = restrict(params || World.db[:apps][name: name])
 
       @repo         = @params[:repo]
