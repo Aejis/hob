@@ -28,7 +28,7 @@ module Hob
     private
 
       def initialize
-        @path = World.root_path.join('.rubies')
+        @path = World.root_path.join('rubies')
       end
     end
   end

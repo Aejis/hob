@@ -47,6 +47,11 @@ module Hob
     attr_reader :prepare_commands
 
     ##
+    # Commands needed to test application
+    #
+    attr_reader :test_commands
+
+    ##
     # Commands required to run application
     #
     attr_reader :start_commands
@@ -77,7 +82,7 @@ module Hob
 
   private
 
-    ALLOWED_FIELDS = Set[:name, :repo, :branch, :ruby_version, :prepare_commands, :start_commands, :stop_commands].freeze
+    ALLOWED_FIELDS = Set[:name, :repo, :branch, :ruby_version, :prepare_commands, :test_commands, :start_commands, :stop_commands].freeze
 
     ##
     # Constructor
@@ -96,6 +101,7 @@ module Hob
       @ruby_version = @params[:ruby_version]
       @start_commands = @params[:start_commands]
       @stop_commands  = @params[:stop_commands]
+      @test_commands  = @params[:test_commands]
       @prepare_commands = @params[:prepare_commands]
     end
 

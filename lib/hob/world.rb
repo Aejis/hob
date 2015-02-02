@@ -49,10 +49,10 @@ module Hob
       @pid    = options[:pid_file]
       @server = options[:server]
       @db_uri = options[:db_uri]
-      @github_options = {
-        client_id: options[:github][:client_id],
-        secret: options[:github][:secret]
-      }
+      # @github_options = {
+      #   client_id: options[:github][:client_id],
+      #   secret: options[:github][:secret]
+      # }
     end
   end
 end

@@ -1,0 +1,5 @@
+---
+  db_uri: 'sqlite://<%= root_path %>/hob.sqlite'
+  pid_file: '<%= root_path %>/hob.pid'
+  port: 8081
+  server: 'webrick'
