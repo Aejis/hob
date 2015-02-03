@@ -9,6 +9,9 @@ module Hob
 
     enable :sessions
 
+    enable :static
+    set :public_folder, File.join(File.dirname(__FILE__), 'assets')
+
     use ::Warden::Manager do |manager|
       manager.default_strategies(:password)
       manager.failure_app = ::Hob::Web
@@ -20,11 +23,11 @@ module Hob
     helpers Warden::Helpers
 
     get '/login' do
-      erb(:login)
+      erb(:login, layout: :base)
     end
 
     get '/register' do
-      erb(:register)
+      erb(:register, layout: :base)
     end
 
     post '/login' do
@@ -41,6 +44,9 @@ module Hob
     end
 
     get '/unauthenticated' do
+      redirect to('/login')
+    end
+    post '/unauthenticated' do
       redirect to('/login')
     end
 
@@ -61,6 +67,14 @@ module Hob
       redirect to('/users')
     end
 
+    # List apps
+    get '/apps/?(.:format)?' do
+      authorize!
+      apps = World.db[:apps].all
+
+      respond_to(params[:format], :app_list, apps: apps)
+    end
+
     # Create
     #
     # Params:
@@ -76,8 +90,18 @@ module Hob
       authorize!
 
       ruby = Lang::Ruby.new
+      app = App.new('')
 
-      erb(:app_create, locals: { ruby_versions: ruby.versions })
+      erb(:app_create, locals: { app: app, ruby_versions: ruby.versions })
+    end
+
+    get '/apps/:name/edit' do
+      authorize!
+
+      app = ::Hob::App.new(params[:name])
+      ruby = Lang::Ruby.new
+
+      erb(:app_edit, locals: { app: app, ruby_versions: ruby.versions })
     end
 
     post '/apps/?(.:format)?' do
@@ -85,6 +109,14 @@ module Hob
 
       app = ::Hob::App.new(params[:name], params)
       created = ::Hob::App::Create.new(app).call
+
+      respond_or_redirect(params[:format], "/apps/#{app.name}/envs", created)
+    end
+
+    patch '/apps/:name/?(.:format)?' do
+      authorize!
+
+      app = ::Hob::App.new(params[:name], params)
 
       respond_or_redirect(params[:format], "/apps/#{app.name}", created)
     end
@@ -179,14 +211,6 @@ module Hob
       app = App.new(params[:name])
 
       respond_to(params[:format], :app_show, { app: app })
-    end
-
-    # List apps
-    get '/apps/?(.:format)?' do
-      authorize!
-      apps = World.db[:apps].all
-
-      respond_to(params[:format], :app_list, apps: apps)
     end
 
   private

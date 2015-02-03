@@ -4,7 +4,7 @@ module Hob
   class User
     class << self
       def authenticate(login, password)
-        params = World.db[:users][login: login]
+        params = World.db[:users][login: login] or return
         u = new(params)
         u.admin! if params[:admin] == true
         u if u.password == password

@@ -94,7 +94,7 @@ module Hob
       @name   = name.to_sym
       @paths  = Paths.new(Hob::World.root_path.join(APPS_DIR, name))
       @env    = Env.new(self)
-      @params = restrict(params || World.db[:apps][name: name])
+      @params = restrict(params || World.db[:apps][name: name] || {})
 
       @repo         = @params[:repo]
       @branch       = @params[:branch]

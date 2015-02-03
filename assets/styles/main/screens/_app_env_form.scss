@@ -1,0 +1,40 @@
+.app-env-form {
+  padding: 20px 10px;
+
+  ul {
+    margin: 0;
+    padding: 0;
+
+    list-style: none;
+
+    li {
+      margin-bottom: 10px;
+    }
+  }
+
+  .inline-button {
+    display: inline-block;
+
+    button {
+      padding: 7px;
+
+      border: none;
+      border-radius: 4px;
+
+      font-size: 13px;
+      color: #fff;
+
+      &.add {
+        background-color: #6db955;
+      }
+
+      &.update {
+        background-color: #64689e;
+      }
+
+      &.delete {
+        background-color: #e86b7e;
+      }
+    }
+  }
+}

@@ -1,30 +1,41 @@
-<ul>
-    <% environment.predefined.each do |env| %>
-        <li class="system">
-            <%= env[:key] %> = <%= env[:value] %>
-        </li>
-    <% end %>
-    <% environment.user.each do |env| %>
-        <li>
-            <form action="/apps/<%= environment.app.name.to_s %>/envs" method="post" style="display: inline-block;">
-                <input type="hidden" name="_method" value="PATCH">
-                <input type="hidden" name="oldkey" value="<%= env[:key] %>">
-                <input type="text" name="key" value="<%= env[:key] %>">
-                =
-                <input type="text" name="value" value="<%= env[:value] %>">
-                <button>Update</button>
-            </form>
-            <form action="/apps/<%= environment.app.name.to_s %>/envs" method="post" style="display: inline-block;">
-                <input type="hidden" name="_method" value="DELETE">
-                <input type="hidden" name="key" value="<%= env[:key] %>">
-                <button>x</button>
-            </form>
-        </li>
-    <% end %>
-    <li>
-        <form action="/apps/<%= environment.app.name.to_s %>/envs" method="post">
-            <input type="text" name="key">&nbsp;=&nbsp;<input type="text" name="value">
-            <button>Add</button>
-        </form>
-    </li>
-</ul>
+<div id="app">
+    <nav>
+        <ul>
+            <li><a href="/apps/<%= environment.app.name %>/edit">Application settings</a></li>
+            <li class="active">Environment variables</li>
+        </ul>
+    </nav>
+
+    <div class="content pretty-form app-env-form">
+        <ul>
+            <% environment.predefined.each do |env| %>
+                <li class="system">
+                    <input type="text" value="<%= env[:key] %>" disabled> = <input type="text" value="<%= env[:value] %>" disabled>
+                </li>
+            <% end %>
+            <% environment.user.each do |env| %>
+                <li>
+                    <form action="/apps/<%= environment.app.name.to_s %>/envs" method="post" class="inline-button">
+                        <input type="hidden" name="_method" value="PATCH">
+                        <input type="hidden" name="oldkey" value="<%= env[:key] %>">
+                        <input type="text" name="key" value="<%= env[:key] %>">
+                        =
+                        <input type="text" name="value" value="<%= env[:value] %>">
+                        <button class="update">Update</button>
+                    </form>
+                    <form action="/apps/<%= environment.app.name.to_s %>/envs" method="post" class="inline-button">
+                        <input type="hidden" name="_method" value="DELETE">
+                        <input type="hidden" name="key" value="<%= env[:key] %>">
+                        <button class="delete">x</button>
+                    </form>
+                </li>
+            <% end %>
+            <li>
+                <form action="/apps/<%= environment.app.name.to_s %>/envs" method="post" class="inline-button">
+                    <input type="text" name="key">&nbsp;=&nbsp;<input type="text" name="value">
+                    <button class="add">Add</button>
+                </form>
+            </li>
+        </ul>
+    </div>
+</div>

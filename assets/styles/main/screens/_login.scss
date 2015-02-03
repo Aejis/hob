@@ -1,0 +1,43 @@
+.login_form {
+  margin: 15% auto;
+
+  width: 300px;
+
+  .inputs {
+    margin-bottom: 10px;
+
+    border: 4px solid #ededed;
+    border-radius: 4px;
+
+    input {
+      width: 100%;
+      padding: 8px;
+
+      border: none;
+      border-bottom: 1px solid #ededed;
+
+      line-height: 1;
+      outline: none;
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      &::placeholder {
+        color: #cfcfcf;
+      }
+
+      &:focus {
+        &::placeholder {
+          color: transparent;
+        }
+      }
+    }
+  }
+
+  button {
+    width: 100%;
+
+    background-color: #64689e;
+  }
+}

@@ -1,0 +1,11 @@
+div#app {
+  display: flex;
+
+  nav {
+    flex: 1;
+  }
+
+  .content {
+    flex: 3;
+  }
+}

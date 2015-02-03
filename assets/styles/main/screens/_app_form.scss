@@ -1,0 +1,31 @@
+.app-form {
+  padding: 20px 10px;
+
+  .form-group {
+    margin-bottom: 1em;
+  }
+
+  label {
+    display: block;
+
+    padding: 0 0 2px 4px;
+  }
+
+  input[type="text"], textarea {
+    width: 100%;
+  }
+
+  textarea {
+    font-family: monospace;
+
+    color: #646280;
+
+    background-color: #f7f8f9;
+  }
+
+  button {
+    width: 300px;
+
+    background-color: #6db955;
+  }
+}

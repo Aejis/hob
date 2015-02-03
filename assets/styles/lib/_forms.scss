@@ -1,0 +1,25 @@
+.pretty-form {
+  label {
+    display: block;
+
+    font-size: 13px;
+    color: #435879;
+  }
+
+  input[type="text"], textarea {
+    padding: 6px;
+
+    font-size: 13px;
+
+    border: 1px solid #acb5c3;
+    border-radius: 4px;
+
+    color: darken(#acb5c3, 25%);
+
+    &:focus {
+      outline: none;
+
+      border-color: #87b35c;
+    }
+  }
+}
