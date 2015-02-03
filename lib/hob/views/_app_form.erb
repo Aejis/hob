@@ -17,7 +17,7 @@
     <label>Ruby Version</label>
     <select name="ruby_version">
     <% ruby_versions.each do |v| %>
-        <option><%= v %></option>
+        <option<%= ' selected' if v == app.ruby_version %>><%= v %></option>
     <% end %>
     </select>
 </div>

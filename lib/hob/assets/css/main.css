@@ -339,6 +339,7 @@ header.main {
   border: none;
   border-radius: 4px;
   text-align: center;
+  text-decoration: none;
   color: #fff; }
 
 .pretty-form label {

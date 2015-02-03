@@ -80,6 +80,30 @@ module Hob
       Hob::World.db[:builds].where(app_name: name)
     end
 
+    ##
+    # Save app data to database
+    #
+    def persist!
+      if persisted?
+        World.db[:apps].where(name: name).update(@diff) unless @diff.empty?
+        @name = @params[:name]
+      else
+        World.db[:apps].insert(@params)
+        @persisted = true
+      end
+    end
+
+    ##
+    # Returns: false if app data was not stored in database
+    #
+    def persisted?
+      @persisted
+    end
+
+    def name_changed?
+      @diff.has_key?(:name)
+    end
+
   private
 
     ALLOWED_FIELDS = Set[:name, :repo, :branch, :ruby_version, :prepare_commands, :test_commands, :start_commands, :stop_commands].freeze
@@ -90,11 +114,20 @@ module Hob
     # Params:
     # - name {String|Symbol} application name
     #
-    def initialize(name, params=nil)
-      @name   = name.to_sym
+    def initialize(name, data={})
+      @persisted = false
+
+      @name   = name
       @paths  = Paths.new(Hob::World.root_path.join(APPS_DIR, name))
       @env    = Env.new(self)
-      @params = restrict(params || World.db[:apps][name: name] || {})
+
+      data    = restrict(data)
+      from_db = retrieve
+      @params = from_db.merge(data)
+      @diff   = data.inject({}) do |diff, (k, v)|
+        diff[k] = v if from_db[k] != v
+        diff
+      end
 
       @repo         = @params[:repo]
       @branch       = @params[:branch]
@@ -103,6 +136,15 @@ module Hob
       @stop_commands  = @params[:stop_commands]
       @test_commands  = @params[:test_commands]
       @prepare_commands = @params[:prepare_commands]
+    end
+
+    def retrieve
+      if data = World.db[:apps][name: @name]
+        @persisted = true
+        data
+      else
+        {}
+      end
     end
 
     def restrict(params)

@@ -3,7 +3,6 @@ Sequel.migration do
     create_table(:actions) do
       primary_key :id
 
-      column :app_name,     String,    null: false
       column :type,         String,    null: false
       column :requested_by, String,    null: false
       column :number,       String,    null: false
@@ -13,6 +12,8 @@ Sequel.migration do
 
       column :started_at,  :timestamp, null: false
       column :finished_at, :timestamp
+
+      foreign_key :app_name, :apps, key: :name, type: String, on_update: :cascade
     end
   end
 

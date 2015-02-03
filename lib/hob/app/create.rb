@@ -30,7 +30,7 @@ module Hob
       end
 
       def persist
-        World.db[:apps].insert(app.params)
+        app.persist!
       end
     end
   end

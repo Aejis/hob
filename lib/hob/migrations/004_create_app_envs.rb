@@ -6,7 +6,7 @@ Sequel.migration do
       column :key,   String, null: false, unique: true
       column :value, String, null: false
 
-      foreign_key :app_name, :apps, key: :name, type: String
+      foreign_key :app_name, :apps, key: :name, type: String, on_update: :cascade
     end
   end
 

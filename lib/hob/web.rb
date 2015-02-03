@@ -113,12 +113,14 @@ module Hob
       respond_or_redirect(params[:format], "/apps/#{app.name}/envs", created)
     end
 
-    patch '/apps/:name/?(.:format)?' do
+    patch '/apps/:app_name/?(.:format)?' do
       authorize!
 
-      app = ::Hob::App.new(params[:name], params)
+      app = App.new(params[:app_name], params)
+      update = App::Update.new(app)
+      update.call
 
-      respond_or_redirect(params[:format], "/apps/#{app.name}", created)
+      respond_or_redirect(params[:format], "/apps/#{app.name}", update)
     end
 
     # Deploy app
