@@ -25,4 +25,5 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency('bcrypt')
   spec.add_runtime_dependency('sqlite3')
   spec.add_runtime_dependency('mustermann')
+  spec.add_runtime_dependency('addressable')
 end

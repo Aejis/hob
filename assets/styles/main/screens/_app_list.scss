@@ -1,0 +1,64 @@
+.app-short {
+  $border-color: #acb5c3;
+
+  display: inline-block;
+
+  width: 220px;
+
+  margin: 0 20px 20px 0;
+  padding: 10px;
+
+  border: 1px solid $border-color;
+  border-radius: 4px;
+
+  a {
+    display: block;
+
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+
+    text: {
+      align: center;
+      decoration: none;
+    }
+
+    border-bottom: 1px solid $border-color;
+
+    h3 {
+      margin: 0 0 5px 0;
+      font-size: 18px;
+
+      color: darken(#707e94, 5%);
+    }
+
+    .repo {
+      margin-right: 5px;
+      font-size: 12px;
+      color: #4d4d4d;
+
+      &::before {
+        @include icon-font;
+        margin-right: 2px;
+      }
+
+      &.github::before { content: '\f09b'; }
+
+      &.git::before { content: '\f1d3'; }
+    }
+
+    .branch {
+      font-size: 12px;
+      color: #4d4d4d;
+
+      &::before {
+        @include icon-font;
+        margin-right: 2px;
+        content: '\f126';
+      }
+    }
+  }
+
+  button {
+    width: 100%;
+  }
+}

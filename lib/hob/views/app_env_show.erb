@@ -21,19 +21,19 @@
                         <input type="text" name="key" value="<%= env[:key] %>">
                         =
                         <input type="text" name="value" value="<%= env[:value] %>">
-                        <button class="update">Update</button>
+                        <button class="button update">Update</button>
                     </form>
                     <form action="/apps/<%= environment.app.name.to_s %>/envs" method="post" class="inline-button">
                         <input type="hidden" name="_method" value="DELETE">
                         <input type="hidden" name="key" value="<%= env[:key] %>">
-                        <button class="delete">x</button>
+                        <button class="button delete">x</button>
                     </form>
                 </li>
             <% end %>
             <li>
                 <form action="/apps/<%= environment.app.name.to_s %>/envs" method="post" class="inline-button">
                     <input type="text" name="key">&nbsp;=&nbsp;<input type="text" name="value">
-                    <button class="add">Add</button>
+                    <button class="button add">Add</button>
                 </form>
             </li>
         </ul>

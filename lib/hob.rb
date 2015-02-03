@@ -3,6 +3,7 @@ require 'sinatra'
 require 'json'
 require 'sequel'
 require 'sqlite3'
+require 'addressable/uri'
 
 module Hob
 end

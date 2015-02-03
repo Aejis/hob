@@ -17,6 +17,11 @@ gulp.task('js', function() {
     .pipe(gulp.dest('./lib/hob/assets/js'));
 });
 
+gulp.task('fonts', function() {
+  gulp.src('./assets/fonts/*')
+    .pipe(gulp.dest('./lib/hob/assets/fonts'));
+});
+
 gulp.task('watch', function() {
   gulp.watch('./assets/styles/**/*.scss', ['sass']);
 });

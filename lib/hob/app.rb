@@ -81,6 +81,23 @@ module Hob
     end
 
     ##
+    # Repo is on github
+    #
+    def github?
+      @repo.include?('github.com')
+    end
+
+    ##
+    # Return prettified github repo name
+    #
+    def github
+      @github ||= begin
+        uri = Addressable::URI.parse(@repo)
+        uri.path.gsub(/\.git$/, '')
+      end
+    end
+
+    ##
     # Save app data to database
     #
     def persist!
@@ -100,6 +117,9 @@ module Hob
       @persisted
     end
 
+    ##
+    # Returns: true if app's name was changed
+    #
     def name_changed?
       @diff.has_key?(:name)
     end

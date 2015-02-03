@@ -1,11 +1,25 @@
-<a href="/apps/create" class="button">Add new app</a>
+<div id="app">
+    <nav>
+        <a href="/apps/create" class="button new">Add new app</a>
+    </nav>
 
-<% apps.each do |app| %>
-    <div>
-        <a href="/apps/<%= app[:name] %>"><%= app[:name] %></a>
-        <form action="/apps/<%= app[:name] %>" method="post" style="display: inline-block">
-            <input type="hidden" name="_method" value="PUT">
-            <button>Deploy</button>
-        </form>
+    <div class="content">
+    <% apps.each do |app| %>
+        <div class="app-short">
+            <a href="/apps/<%= app.name %>">
+                <h3><%= app.name %></h3>
+                <% if app.github? %>
+                    <span class="repo github"><%= app.github %></span>
+                <% else %>
+                    <span class="repo git"><%= app.repo %></span>
+                <% end %>
+                <span class="branch"><%= app.branch %></span>
+            </a>
+            <form action="/apps/<%= app.name %>" method="post">
+                <input type="hidden" name="_method" value="PUT">
+                <button class="button add">Deploy</button>
+            </form>
+        </div>
+    <% end %>
     </div>
-<% end %>
+</div>

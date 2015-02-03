@@ -70,7 +70,7 @@ module Hob
     # List apps
     get '/apps/?(.:format)?' do
       authorize!
-      apps = World.db[:apps].all
+      apps = World.db[:apps].map { |app| App.new(app[:name], app) }
 
       respond_to(params[:format], :app_list, apps: apps)
     end
