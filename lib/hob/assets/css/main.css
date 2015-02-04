@@ -727,10 +727,32 @@ div#app {
         text-align: right; }
     .app-action-show ul .log {
       display: none;
-      padding: 5px;
-      font-family: monospace;
-      background-color: #314752;
-      color: #9cb9c8; }
+      padding: 5px 10px; }
+
+.app-action-show .log {
+  font-family: monospace;
+  background-color: #314752;
+  color: #9cb9c8; }
+  .app-action-show .log .green {
+    color: #5b963d; }
+  .app-action-show .log .blue {
+    color: #257fad; }
+  .app-action-show .log .yellow {
+    color: #8a8a0f; }
+  .app-action-show .log .red {
+    color: #dd3838; }
+  .app-action-show .log .magenta {
+    color: #b72dd2; }
+  .app-action-show .log .cyan {
+    color: #2c9a8f; }
+  .app-action-show .log .grey {
+    color: #516d7b; }
+  .app-action-show .log .bold {
+    font-weight: bold; }
+  .app-action-show .log .italic {
+    font-style: italic; }
+  .app-action-show .log .underline {
+    text-decoration: underline; }
 
 .app-form .form-group {
   margin-bottom: 1em; }

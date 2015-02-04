@@ -101,7 +101,9 @@ module Hob
         @action_id = World.db[:actions].insert(data)
 
         begin
-          yield
+          Bundler.with_clean_env do
+            yield
+          end
         rescue => e
           @success = false
           # FileUtils.rm_rf(app.paths.release(@number))

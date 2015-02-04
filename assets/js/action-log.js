@@ -2,18 +2,24 @@
   'use strict';
 
   var root = dom('.app-action-show'),
-      log  = root.find('li');
+      entries = root.find('li .info');
 
-  log.forEach(function(el) {
+  entries.forEach(function(el) {
+    var element = dom(el);
+
     el.addEventListener('click', function(e) {
-      var element = dom(el);
+      var parent = element.parents(1);
 
-      if (element.hasClass('opened')) {
-        element.removeClass('opened');
+      if (parent.hasClass('opened')) {
+        parent.removeClass('opened');
       } else {
         root.find('li.opened').removeClass('opened');
-        dom(el).addClass('opened');
+        parent.addClass('opened');
       }
     }, false);
+  });
+
+  root.find('li .log pre').forEach(function(el) {
+    el.innerHTML = logRender(el.innerText);
   });
 })();

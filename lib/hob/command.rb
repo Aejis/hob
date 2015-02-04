@@ -19,7 +19,7 @@ module Hob
     def run_command
       begin
         start_time = Time.now
-        Open3.popen3(@command, @options) do |_, stdout, stderr, wait_thr|
+        Open3.popen3(@command.strip, @options) do |_, stdout, stderr, wait_thr|
           @status      = wait_thr.value.exitstatus
           @success_log = stdout.read
           @fail_log    = stderr.read
@@ -37,7 +37,7 @@ module Hob
     def initialize(command, dir=nil)
       @command = command
       @options = {}
-      @options[chdir] = dir if dir
+      @options[:chdir] = dir.to_s if dir
 
       run_command
     end

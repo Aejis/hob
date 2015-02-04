@@ -1,0 +1,29 @@
+.app-action-show .log {
+  font-family: monospace;
+
+  background-color: #314752;
+  color: #9cb9c8;
+
+  .green { color: rgb(91, 150, 61); }
+  .blue { color: rgb(37, 127, 173); }
+  .yellow { color: rgb(138, 138, 15); }
+  .black {}
+  .red { color: rgb(221, 56, 56); }
+  .magenta { color: rgb(183, 45, 210); }
+  .cyan { color: rgb(44, 154, 143); }
+  .white {}
+  .grey { color: rgb(81, 109, 123); }
+
+  .bg-black { }
+  .bg-red { }
+  .bg-green { }
+  .bg-yellow { }
+  .bg-blue { }
+  .bg-magenta { }
+  .bg-cyan { }
+  .bg-white { }
+
+  .bold { font-weight: bold; }
+  .italic { font-style: italic; }
+  .underline { text-decoration: underline; }
+}
