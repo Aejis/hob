@@ -715,6 +715,8 @@ div#app {
         background-color: #edf0f5; }
       .app-action-show ul li:nth-child(even) .info {
         background-color: #fafcff; }
+      .app-action-show ul li.opened .log {
+        display: block; }
     .app-action-show ul .info {
       padding: 4px; }
       .app-action-show ul .info .additional {

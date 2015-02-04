@@ -24,4 +24,5 @@ gulp.task('fonts', function() {
 
 gulp.task('watch', function() {
   gulp.watch('./assets/styles/**/*.scss', ['sass']);
+  gulp.watch('./assets/js/*.js', ['js']);
 });

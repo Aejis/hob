@@ -146,6 +146,10 @@
       &:nth-child(even) .info {
         background-color: #fafcff;
       }
+
+      &.opened .log {
+        display: block;
+      }
     }
 
     .info {
