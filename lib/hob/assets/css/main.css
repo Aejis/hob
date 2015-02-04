@@ -612,6 +612,79 @@ div#app {
       .app-show .action-list .action.running .type a span {
         border-color: #a1adc2; }
 
+.app-action-show {
+  width: 80%;
+  margin: 20px auto; }
+  .app-action-show .action {
+    padding: 5px 10px;
+    border: 1px solid;
+    border-bottom: 3px solid;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    font-size: 14px;
+    color: #707e93; }
+    .app-action-show .action div:first-child {
+      padding-bottom: 5px; }
+    .app-action-show .action .app, .app-action-show .action .user {
+      display: inline-block;
+      width: 28%; }
+    .app-action-show .action .revision {
+      margin-right: 4%; }
+    .app-action-show .action .date, .app-action-show .action .finished {
+      margin-right: 14px; }
+    .app-action-show .action .app {
+      font-size: 18px;
+      font-weight: bold; }
+    .app-action-show .action .type {
+      float: right;
+      display: inline-block;
+      padding: 2px 4px;
+      border: 1px solid;
+      border-radius: 3px;
+      font-size: 16px; }
+    .app-action-show .action .revision {
+      color: #707e93;
+      text-decoration: none; }
+    .app-action-show .action .user::before, .app-action-show .action .revision::before, .app-action-show .action .date::before, .app-action-show .action .number::before, .app-action-show .action .started::before, .app-action-show .action .duration::before {
+      font-family: FontAwesome;
+      text-rendering: auto;
+      -moz-osx-font-smoothing: grayscale;
+      -webkit-font-smoothing: antialiased;
+      -webkit-transform: translate(0, 0);
+      transform: translate(0, 0);
+      margin-right: 4px; }
+    .app-action-show .action .user::before {
+      content: '\f21b'; }
+    .app-action-show .action .revision::before {
+      content: '\f1d2'; }
+    .app-action-show .action .date::before {
+      content: '\f073'; }
+    .app-action-show .action .number::before {
+      content: '\f115'; }
+    .app-action-show .action .started::before {
+      content: '\f017'; }
+    .app-action-show .action .duration::before {
+      content: '\f0e4'; }
+    .app-action-show .action.success {
+      border-color: #539474;
+      background-color: #ebf6f1; }
+      .app-action-show .action.success .type, .app-action-show .action.success .app, .app-action-show .action.success .user {
+        color: #539474; }
+      .app-action-show .action.success .type {
+        border-color: #a0c9b5; }
+    .app-action-show .action.fail {
+      border-color: #c94050;
+      background-color: #f7e6e9; }
+      .app-action-show .action.fail .type, .app-action-show .action.fail .app, .app-action-show .action.fail .user {
+        color: #c94050; }
+      .app-action-show .action.fail .type {
+        border-color: #e89ba8; }
+    .app-action-show .action.running {
+      border-color: #707e93;
+      background-color: #edf0f5; }
+      .app-action-show .action.running .type {
+        border-color: #a1adc2; }
+
 .app-form .form-group {
   margin-bottom: 1em; }
 .app-form label {

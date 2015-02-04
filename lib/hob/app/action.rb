@@ -46,8 +46,6 @@ module Hob
           @revision = %x(git rev-list --max-count=1 origin/#{app.branch}).strip
 
           log(Command.new("git reset --hard #{@revision}"))
-
-          @revision = @revision[0..6]
         end
       end
 
@@ -96,7 +94,7 @@ module Hob
 
         unless new_release
           Dir.chdir(app.paths.current) do
-            data[:revision] = @revision = %x(git rev-list --max-count=1 --abbrev-commit origin/#{app.branch}).strip
+            data[:revision] = @revision = %x(git rev-list --max-count=1 origin/#{app.branch}).strip
           end
         end
 

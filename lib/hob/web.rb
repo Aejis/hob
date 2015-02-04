@@ -76,8 +76,15 @@ module Hob
     end
 
     # Show action log
-    get '/apps/:name/action/:id/?(.:format)?' do
+    # TODO: decide to move route under /actions
+    get '/apps/:name/actions/:id/?(.:format)?' do
       authorize!
+
+      action = World.db[:actions][id: params[:id]]
+      app = App.new(action[:app_name])
+      logs = World.db[:action_logs].where(action_id: action[:id])
+
+      respond_to(params[:format], :app_action_show, { app: app, action: action, logs: logs })
     end
 
     # Create

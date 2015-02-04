@@ -1,25 +1,39 @@
-<dl>
-    <dt>App</dt>
-    <dd><%= action.app.name %></dd>
+<div class="app-action-show">
+    <header class="action <%= action[:is_success] ? 'success' : (action[:finished_at] ? 'fail' : 'running') %>">
+        <div>
+            <a href="/apps/<%= app.name %>" class="app"><%= app.name %></a>
 
-    <dt>Revision</dt>
-    <dd><%= action.result[:revision] %></dd>
+            <span class="date"><%= action[:started_at].strftime('%d %b %Y') %></span>
+            <span class="started"><%= action[:started_at].strftime('%H:%M:%S') %></span>&ndash;<span class="finished"><%= action[:finished_at].strftime('%H:%M:%S') %></span>
+            <span class="duration"><%= action[:elapsed_time] %>s</span>
 
-    <dt>Requested by</dt>
-    <dd><%= action.result[:requested_by] %></dd>
+            <span class="type"><%= action[:type] %></span>
+        </div>
 
-    <dt>Successful</dt>
-    <dd><%= action.result[:is_success] ? 'Yes' : 'No' %></dd>
+        <div>
+            <span class="user"><%= action[:requested_by] %></span>
 
-    <dt>Elapsed time</dt>
-    <dd><%= action.result[:elapsed_time] %></dd>
-</dl>
+            <% if app.github? %>
+                <a href="https://github.com/<%= app.github %>/commit/<%= action[:revision] %>" class="revision"><%= action[:revision] %></a>
+            <% else %>
+                <span class="revision"><%= action[:revision] %></span>
+            <% end %>
 
-<ul>
-    <% action.logs.each do |log| %>
-    <li>
-        <strong><%= log[:command] %></strong>
-        <%= log[:log] %>
-    </li>
-    <% end %>
-</ul>
+            <span class="number"><%= action[:number] %></span>
+        </div>
+    </header>
+    <ul>
+        <% logs.each do |log| %>
+        <li>
+            <div>
+                <%= log[:command] %>
+                <%= log[:status] %>
+                <%= log[:elapsed_time] %>
+            </div>
+            <div>
+                <%= log[:log] %>
+            </div>
+        </li>
+        <% end %>
+    </ul>
+</div>

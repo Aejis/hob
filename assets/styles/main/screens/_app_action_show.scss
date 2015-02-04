@@ -1,0 +1,108 @@
+.app-action-show {
+  width: 80%;
+
+  margin: 20px auto;
+
+  .action {
+    padding: 5px 10px;
+
+    border: 1px solid;
+    border-bottom: 3px solid;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+
+    font-size: 14px;
+    color: #707e93;
+
+    div:first-child { padding-bottom: 5px; }
+
+    .app, .user {
+      display: inline-block;
+      width: 28%;
+    }
+
+    .revision {
+      margin-right: 4%;
+    }
+
+    .date, .finished {
+      margin-right: 14px;
+    }
+
+    .app {
+      font: {
+        size: 18px;
+        weight: bold;
+      }
+    }
+
+    .type {
+      float: right;
+      display: inline-block;
+
+      padding: 2px 4px;
+
+      border: 1px solid;
+      border-radius: 3px;
+
+      font-size: 16px;
+    }
+
+    .revision {
+      color: #707e93;
+      text-decoration: none;
+    }
+
+    .user, .revision, .date, .number, .started, .duration {
+      &::before {
+        @include icon-font;
+        margin-right: 4px;
+      }
+    }
+
+    .user::before { content: '\f21b'; }
+    .revision::before { content: '\f1d2'; }
+    .date::before { content: '\f073'; }
+    .number::before { content: '\f115'; }
+    .started::before { content: '\f017'; }
+    .duration::before { content: '\f0e4'; }
+
+    &.success {
+      border-color: #539474;
+
+      background-color: #ebf6f1;
+
+      .type, .app, .user {
+        color: #539474;
+      }
+
+      .type {
+        border-color: #a0c9b5;
+      }
+    }
+
+    &.fail {
+      border-color: #c94050;
+
+      background-color: #f7e6e9;
+
+      .type, .app, .user {
+        color: #c94050;
+      }
+
+      .type {
+        border-color: #e89ba8;
+      }
+    }
+
+    &.running {
+      border-color: #707e93;
+
+      background-color: #edf0f5;
+
+      .type {
+        border-color: #a1adc2;
+      }
+    }
+  }
+}

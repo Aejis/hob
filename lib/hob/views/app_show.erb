@@ -35,12 +35,12 @@
         <table>
             <% log.each do |l| %>
             <tr class="action <%= l[:type] %> <%= l[:is_success] ? 'success' : (l[:finished_at] ? 'fail' : 'running') %>">
-                <td class="type"><a href="/app/<%= app.name %>/actions/<%= l[:id] %>"><span><%= l[:type] %></span></a></td>
-                <td class="user"><a href="/app/<%= app.name %>/actions/<%= l[:id] %>"><%= l[:requested_by] %></a></td>
-                <td class="revision"><a href="/app/<%= app.name %>/actions/<%= l[:id] %>"><%= l[:revision] %></a></td>
-                <td class="duration"><a href="/app/<%= app.name %>/actions/<%= l[:id] %>"><%= l[:elapsed_time].round(2) %>s</a></td>
+                <td class="type"><a href="/apps/<%= app.name %>/actions/<%= l[:id] %>"><span><%= l[:type] %></span></a></td>
+                <td class="user"><a href="/apps/<%= app.name %>/actions/<%= l[:id] %>"><%= l[:requested_by] %></a></td>
+                <td class="revision"><a href="/apps/<%= app.name %>/actions/<%= l[:id] %>"><%= l[:revision] %></a></td>
+                <td class="duration"><a href="/apps/<%= app.name %>/actions/<%= l[:id] %>"><%= l[:elapsed_time].round(2) %>s</a></td>
                 <td class="datetime">
-                    <a href="/app/<%= app.name %>/actions/<%= l[:id] %>">
+                    <a href="/apps/<%= app.name %>/actions/<%= l[:id] %>">
                         <span class="date"><%= l[:started_at].strftime('%d %b %Y') %></span>
                         <span class="time"><%= l[:started_at].strftime('%H:%M:%S') %></span>
                     </a>
