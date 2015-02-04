@@ -24,9 +24,11 @@ module Hob
           @success_log = stdout.read
           @fail_log    = stderr.read
         end
-        @elapsed_time = Time.now - start_time
-      rescue Errno::ENOENT => e
+      rescue Errno::ENOENT => e # Command not found
+        @status = 127
         @fail_log = e.message
+      ensure
+        @elapsed_time = Time.now - start_time
       end
     end
 

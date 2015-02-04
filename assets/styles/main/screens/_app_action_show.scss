@@ -3,6 +3,25 @@
 
   margin: 20px auto;
 
+  font-size: 14px;
+
+  color: #687689;
+
+  .user, .revision, .date, .number, .started, .duration {
+    &::before {
+      @include icon-font;
+      margin-right: 4px;
+    }
+  }
+
+  .user::before { content: '\f21b'; }
+  .git::before { content: '\f1d2'; }
+  .github::before { content: '\f09b'; }
+  .date::before { content: '\f073'; }
+  .number::before { content: '\f115'; }
+  .started::before { content: '\f017'; }
+  .duration::before { content: '\f0e4'; }
+
   .action {
     padding: 5px 10px;
 
@@ -10,9 +29,6 @@
     border-bottom: 3px solid;
     border-top-left-radius: 4px;
     border-top-right-radius: 4px;
-
-    font-size: 14px;
-    color: #707e93;
 
     div:first-child { padding-bottom: 5px; }
 
@@ -23,6 +39,13 @@
 
     .revision {
       margin-right: 4%;
+      color: #687689;
+
+      text-decoration: none;
+    }
+
+    a.revision span {
+      text-decoration: underline;
     }
 
     .date, .finished {
@@ -48,27 +71,8 @@
       font-size: 16px;
     }
 
-    .revision {
-      color: #707e93;
-      text-decoration: none;
-    }
-
-    .user, .revision, .date, .number, .started, .duration {
-      &::before {
-        @include icon-font;
-        margin-right: 4px;
-      }
-    }
-
-    .user::before { content: '\f21b'; }
-    .revision::before { content: '\f1d2'; }
-    .date::before { content: '\f073'; }
-    .number::before { content: '\f115'; }
-    .started::before { content: '\f017'; }
-    .duration::before { content: '\f0e4'; }
-
     &.success {
-      border-color: #539474;
+      border-color: lighten(#539474, 15%);
 
       background-color: #ebf6f1;
 
@@ -82,7 +86,7 @@
     }
 
     &.fail {
-      border-color: #c94050;
+      border-color: lighten(#c94050, 5%);
 
       background-color: #f7e6e9;
 
@@ -100,9 +104,73 @@
 
       background-color: #edf0f5;
 
+      .app { color: #687689; }
+
       .type {
         border-color: #a1adc2;
       }
+    }
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+
+    list-style: none;
+
+    li {
+      width: 100%;
+
+      .info::before {
+        display: inline-block;
+        @include icon-font;
+
+        width: 14px;
+        margin-right: 2px;
+      }
+
+      &.success .info::before {
+        content: '\f00c';
+        color: #539474;
+      }
+
+      &.fail .info::before {
+        content: '\f00d';
+        color: #c94050;
+      }
+
+      &:nth-child(odd) .info {
+        background-color: #edf0f5;
+      }
+
+      &:nth-child(even) .info {
+        background-color: #fafcff;
+      }
+    }
+
+    .info {
+      padding: 4px;
+
+      .additional {
+        float: right;
+      }
+
+      .status {
+        display: inline-block;
+        width: 3em;
+
+        text-align: right;
+      }
+    }
+
+    .log {
+      display: none;
+
+      padding: 5px;
+      font-family: monospace;
+
+      background-color: #314752;
+      color: #9cb9c8;
     }
   }
 }

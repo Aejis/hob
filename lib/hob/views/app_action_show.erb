@@ -14,9 +14,9 @@
             <span class="user"><%= action[:requested_by] %></span>
 
             <% if app.github? %>
-                <a href="https://github.com/<%= app.github %>/commit/<%= action[:revision] %>" class="revision"><%= action[:revision] %></a>
+                <a href="https://github.com/<%= app.github %>/commit/<%= action[:revision] %>" class="revision github"><span><%= action[:revision] %></span></a>
             <% else %>
-                <span class="revision"><%= action[:revision] %></span>
+                <span class="revision git"><%= action[:revision] %></span>
             <% end %>
 
             <span class="number"><%= action[:number] %></span>
@@ -24,14 +24,16 @@
     </header>
     <ul>
         <% logs.each do |log| %>
-        <li>
-            <div>
-                <%= log[:command] %>
-                <%= log[:status] %>
-                <%= log[:elapsed_time] %>
+        <li class="<%= log[:status] == 0 ? 'success' : 'fail' %>">
+            <div class="info">
+                <span><%= log[:command] %></span>
+                <span class="additional">
+                    <span class="duration"><%= log[:elapsed_time] %></span>
+                    <span class="status"><%= log[:status] %></span>
+                </span>
             </div>
-            <div>
-                <%= log[:log] %>
+            <div class="log">
+                <pre><%= log[:log].strip %></pre>
             </div>
         </li>
         <% end %>
