@@ -43,9 +43,11 @@ module Hob
         Dir.chdir(app.paths.repo) do
           log(Command.new('git fetch origin'))
 
-          @revision = %x(git rev-list --max-count=1 --abbrev-commit origin/#{app.branch}).strip
+          @revision = %x(git rev-list --max-count=1 origin/#{app.branch}).strip
 
           log(Command.new("git reset --hard #{@revision}"))
+
+          @revision = @revision[0..6]
         end
       end
 
@@ -89,7 +91,16 @@ module Hob
 
         @time_start = Time.now
         @number     = @time_start.strftime('%Y%m%d%H%M%S') # FIXME: Get release number unless new_release
-        @action_id  = World.db[:actions].insert(app_name: app.name.to_s, type: type, number: @number, requested_by: @user.login, started_at: @time_start)
+
+        data = { app_name: app.name.to_s, type: type, number: @number, requested_by: @user.login, started_at: @time_start }
+
+        unless new_release
+          Dir.chdir(app.paths.current) do
+            data[:revision] = @revision = %x(git rev-list --max-count=1 --abbrev-commit origin/#{app.branch}).strip
+          end
+        end
+
+        @action_id = World.db[:actions].insert(data)
 
         begin
           yield

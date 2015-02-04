@@ -1,37 +1,52 @@
-<dl>
-    <dt>App name:</dt>
-    <dd><%= app.name %></dd>
+<div class="app-show">
+    <header>
+        <div class="name">
+            <h2><%= app.name %></h2>
+            <a href="/apps/<%= app.name %>/edit" class="edit">Edit</a>
+        </div>
 
-    <dt>Repository:</dt>
-    <dd><%= app.repo %></dd>
+        <div class="info">
+            <% if app.github? %>
+                <a class="repo github" href="https://github.com/<%= app.github %>"><%= app.github %></a>
+            <% else %>
+                <span class="repo git"><%= app.repo %></span>
+            <% end %>
 
-    <dt>Branch:</dt>
-    <dd><%= app.branch %></dd>
+            <span class="branch"><%= app.branch %></span>
+        </div>
 
-    <dt>Ruby:</dt>
-    <dd><%= app.ruby_version %></dd>
+        <div class="actions">
+            <form action="/apps/<%= app.name %>" method="post">
+                <input type="hidden" name="_method" value="PUT">
+                <button class="button add">Deploy</button>
+            </form>
 
-    <dt>Prepare commands:</dt>
-    <dd><%= app.prepare_commands %></dd>
+            <form action="/apps/<%= app.name %>/start" method="post">
+                <button class="button add">Start</button>
+            </form>
 
-    <dt>Start commands:</dt>
-    <dd><%= app.start_commands %></dd>
+            <form action="/apps/<%= app.name %>/stop" method="post">
+                <button class="button delete">Stop</button>
+            </form>
+        </div>
+    </header>
 
-    <dt>Stop commands:</dt>
-    <dd><%= app.stop_commands %></dd>
-</dl>
-
-<a href="/apps/<%= app.name %>/envs">Edit application environment</a>
-
-<form action="/apps/<%= app.name %>/start" method="post">
-    <button>Start</button>
-</form>
-
-<form action="/apps/<%= app.name %>/stop" method="post">
-    <button>Stop</button>
-</form>
-
-<form action="/apps/<%= app.name %>" method="post">
-    <input type="hidden" name="_method" value="PUT">
-    <button>Deploy</button>
-</form>
+    <div class="action-list">
+        <table>
+            <% log.each do |l| %>
+            <tr class="action <%= l[:type] %> <%= l[:is_success] ? 'success' : (l[:finished_at] ? 'fail' : 'running') %>">
+                <td class="type"><a href="/app/<%= app.name %>/actions/<%= l[:id] %>"><span><%= l[:type] %></span></a></td>
+                <td class="user"><a href="/app/<%= app.name %>/actions/<%= l[:id] %>"><%= l[:requested_by] %></a></td>
+                <td class="revision"><a href="/app/<%= app.name %>/actions/<%= l[:id] %>"><%= l[:revision] %></a></td>
+                <td class="duration"><a href="/app/<%= app.name %>/actions/<%= l[:id] %>"><%= l[:elapsed_time].round(2) %>s</a></td>
+                <td class="datetime">
+                    <a href="/app/<%= app.name %>/actions/<%= l[:id] %>">
+                        <span class="date"><%= l[:started_at].strftime('%d %b %Y') %></span>
+                        <span class="time"><%= l[:started_at].strftime('%H:%M:%S') %></span>
+                    </a>
+                </td>
+            </tr>
+            <% end %>
+        </table>
+    </div>
+</div>

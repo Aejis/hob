@@ -329,7 +329,8 @@ header.main {
     padding: 0;
     list-style: none; }
     header.main nav ul li {
-      display: inline-block; }
+      display: inline-block;
+      margin-right: 1em; }
       header.main nav ul li a {
         color: #fff;
         text-decoration: none; }
@@ -346,7 +347,7 @@ header.main {
   .button.add {
     background-color: #6db955; }
   .button.delete {
-    background-color: #e86b7e; }
+    background-color: #ed5363; }
 
 .pretty-form label {
   display: block;
@@ -468,6 +469,148 @@ div#app {
         content: '\f126'; }
   .app-short button {
     width: 100%; }
+
+.app-show header {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #c7cbd9;
+  background-color: #dddfe7; }
+  .app-show header h2 {
+    display: inline-block;
+    margin: 0 8px 0 0;
+    color: #63669e; }
+  .app-show header .name, .app-show header .info, .app-show header .actions {
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1; }
+  .app-show header .edit {
+    color: #707e94;
+    text-decoration: none; }
+    .app-show header .edit::before {
+      font-family: FontAwesome;
+      text-rendering: auto;
+      -moz-osx-font-smoothing: grayscale;
+      -webkit-font-smoothing: antialiased;
+      -webkit-transform: translate(0, 0);
+      transform: translate(0, 0);
+      margin-right: 4px;
+      content: '\f085'; }
+  .app-show header .repo {
+    margin-right: 5px;
+    font-size: 14px;
+    color: #4d4d4d;
+    text-decoration: none; }
+    .app-show header .repo::before {
+      font-family: FontAwesome;
+      text-rendering: auto;
+      -moz-osx-font-smoothing: grayscale;
+      -webkit-font-smoothing: antialiased;
+      -webkit-transform: translate(0, 0);
+      transform: translate(0, 0);
+      margin-right: 2px; }
+    .app-show header .repo.github::before {
+      content: '\f09b'; }
+    .app-show header .repo.git::before {
+      content: '\f1d3'; }
+  .app-show header .branch {
+    font-size: 14px;
+    color: #4d4d4d; }
+    .app-show header .branch::before {
+      font-family: FontAwesome;
+      text-rendering: auto;
+      -moz-osx-font-smoothing: grayscale;
+      -webkit-font-smoothing: antialiased;
+      -webkit-transform: translate(0, 0);
+      transform: translate(0, 0);
+      margin-right: 2px;
+      content: '\f126'; }
+  .app-show header .actions {
+    text-align: right; }
+    .app-show header .actions form {
+      display: inline-block; }
+    .app-show header .actions .button {
+      padding: 8px 10px; }
+.app-show .action-list {
+  width: 80%;
+  margin: 20px auto; }
+  .app-show .action-list table {
+    width: 100%; }
+  .app-show .action-list .action {
+    border-left: 3px solid;
+    border-bottom: 1px solid; }
+    .app-show .action-list .action a {
+      display: block;
+      padding: 10px 5px;
+      font-size: 14px;
+      color: #707e93;
+      text-decoration: none; }
+    .app-show .action-list .action .user a::before, .app-show .action-list .action .revision a::before, .app-show .action-list .action .duration a::before, .app-show .action-list .action .time::before, .app-show .action-list .action .date::before {
+      font-family: FontAwesome;
+      text-rendering: auto;
+      -moz-osx-font-smoothing: grayscale;
+      -webkit-font-smoothing: antialiased;
+      -webkit-transform: translate(0, 0);
+      transform: translate(0, 0);
+      margin-right: 4px; }
+    .app-show .action-list .action .type a span {
+      padding: 2px 4px;
+      border: 1px solid;
+      border-radius: 3px; }
+    .app-show .action-list .action .user a::before {
+      content: '\f21b'; }
+    .app-show .action-list .action .revision a::before {
+      content: '\f1d2'; }
+    .app-show .action-list .action .time::before {
+      content: '\f017'; }
+    .app-show .action-list .action .date::before {
+      content: '\f073'; }
+    .app-show .action-list .action .duration a::before {
+      content: '\f0e4'; }
+    .app-show .action-list .action .datetime {
+      text-align: right; }
+      .app-show .action-list .action .datetime .date {
+        margin-right: 10px; }
+    .app-show .action-list .action.success {
+      border-left-color: #539474;
+      border-bottom-color: #d9eee5;
+      background-color: #ebf6f1; }
+      .app-show .action-list .action.success:hover {
+        background-color: #f2f9f6; }
+      .app-show .action-list .action.success .type a span {
+        color: #539474;
+        border-color: #a0c9b5; }
+      .app-show .action-list .action.success .user a {
+        color: #539474; }
+    .app-show .action-list .action.fail {
+      border-left-color: #c94050;
+      border-bottom-color: #f1d3d8;
+      background-color: #f7e6e9; }
+      .app-show .action-list .action.fail:hover {
+        background-color: #f9eef0; }
+      .app-show .action-list .action.fail .type a span {
+        color: #c94050;
+        border-color: #e89ba8; }
+      .app-show .action-list .action.fail .user a {
+        color: #c94050; }
+    .app-show .action-list .action.running {
+      border-left-color: #707e93;
+      border-bottom-color: #dde2ec;
+      background-color: #edf0f5; }
+      .app-show .action-list .action.running:hover {
+        background-color: #f4f5f9; }
+      .app-show .action-list .action.running .type a span {
+        border-color: #a1adc2; }
 
 .app-form .form-group {
   margin-bottom: 1em; }

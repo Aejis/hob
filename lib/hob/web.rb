@@ -75,6 +75,11 @@ module Hob
       respond_to(params[:format], :app_list, apps: apps)
     end
 
+    # Show action log
+    get '/apps/:name/action/:id/?(.:format)?' do
+      authorize!
+    end
+
     # Create
     #
     # Params:
@@ -93,6 +98,16 @@ module Hob
       app = App.new('')
 
       erb(:app_create, locals: { app: app, ruby_versions: ruby.versions })
+    end
+
+    # Show app
+    get '/apps/:name/?(.:format)?' do
+      authorize!
+
+      app = App.new(params[:name])
+      log = World.db[:actions].where(app_name: app.name).order(Sequel.desc(:finished_at)).limit(10)
+
+      respond_to(params[:format], :app_show, { app: app, log: log })
     end
 
     get '/apps/:name/edit' do
@@ -199,20 +214,6 @@ module Hob
       action.start
 
       respond_to(params[:format], :app_action_show, { action: action })
-    end
-
-    # Show action log
-    get '/apps/:name/action/:id/?(.:format)?' do
-      authorize!
-    end
-
-    # Show app
-    get '/apps/:name/?(.:format)?' do
-      authorize!
-
-      app = App.new(params[:name])
-
-      respond_to(params[:format], :app_show, { app: app })
     end
 
   private
