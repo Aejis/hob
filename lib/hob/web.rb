@@ -154,7 +154,7 @@ module Hob
       action = App::Action.new(app, current_user)
       action.deploy
 
-      respond_to(params[:format], :app_action_show, { action: action })
+      redirect to("/apps/#{app.name}/actions/#{action.id}")
     end
 
     # Get env variables for app

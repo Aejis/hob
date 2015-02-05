@@ -4,11 +4,11 @@ module Hob
 
       CommandFailed = Class.new(StandardError)
 
+      attr_reader :id
+
       attr_reader :app
 
       attr_reader :result
-
-      attr_reader :logs
 
       def start
         perform('start') do
@@ -30,6 +30,10 @@ module Hob
           link_current
           _start
         end
+      end
+
+      def logs
+        World.db[:action_logs].where(action_id: @id)
       end
 
     private
@@ -69,14 +73,13 @@ module Hob
 
       def log(entry)
         params = {
-          action_id: @action_id,
+          action_id: @id,
           command:   entry.command,
           status:    entry.status,
           elapsed_time: entry.elapsed_time,
           log:          entry.log
         }
 
-        @logs << params
         World.db[:action_logs].insert(params)
 
         fail CommandFailed if entry.status != 0
@@ -84,7 +87,6 @@ module Hob
 
       def perform(type, new_release=false)
         @success   = true
-        @logs      = []
         @result    = {}
 
         @time_start = Time.now
@@ -98,7 +100,7 @@ module Hob
           end
         end
 
-        @action_id = World.db[:actions].insert(data)
+        @id = World.db[:actions].insert(data)
 
         begin
           Bundler.with_clean_env do
@@ -106,20 +108,22 @@ module Hob
           end
         rescue => e
           @success = false
+          require 'pry'
+          binding.pry
           # FileUtils.rm_rf(app.paths.release(@number))
           # TODO log error if not CommandFailed
           # TODO link and start old rev
         ensure
           time_finish = Time.now
 
-          World.db[:actions].where(id: @action_id).update({
+          World.db[:actions].where(id: @id).update({
             revision:     @revision,
             is_success:   @success,
             elapsed_time: time_finish - @time_start,
             finished_at:  time_finish
           })
 
-          @result = World.db[:actions][id: @action_id]
+          @result = World.db[:actions][id: @id]
         end
       end
 
