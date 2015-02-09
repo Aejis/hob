@@ -1,25 +1,23 @@
 (function() {
   'use strict';
 
-  var root = dom('.app-action-show'),
-      entries = root.find('li .info');
+  var root    = document.getElementById('app-action-show'),
+      entries = root.getElementsByTagName('li'),
+      each    = Array.prototype.forEach;
 
-  entries.forEach(function(el) {
-    var element = dom(el);
+  each.call(entries, function(el) {
+    var info = el.getElementsByClassName('info')[0],
+        log  = el.querySelector('.log pre');
 
-    el.addEventListener('click', function(e) {
-      var parent = element.parents(1);
+    log.innerHTML = logRender(log.innerText);
 
-      if (parent.hasClass('opened')) {
-        parent.removeClass('opened');
+    info.addEventListener('click', function(e) {
+      if (el.classList.contains('opened')) {
+        el.classList.remove('opened');
       } else {
-        root.find('li.opened').removeClass('opened');
-        parent.addClass('opened');
+        each.call(root.querySelectorAll('li.opened'), function(e) { e.classList.remove('opened'); });
+        el.classList.add('opened');
       }
     }, false);
-  });
-
-  root.find('li .log pre').forEach(function(el) {
-    el.innerHTML = logRender(el.innerText);
   });
 })();

@@ -1,4 +1,4 @@
-<div class="app-action-show">
+<div id="app-action-show">
     <header class="action <%= action[:is_success] ? 'success' : (action[:finished_at] ? 'fail' : 'running') %>">
         <div>
             <a href="/apps/<%= app.name %>" class="app"><%= app.name %></a>
@@ -39,6 +39,5 @@
         <% end %>
     </ul>
 </div>
-<script type="text/javascript" src="/js/beejs-dom.js"></script>
 <script type="text/javascript" src="/js/log-render.js"></script>
 <script type="text/javascript" src="/js/action-log.js"></script>

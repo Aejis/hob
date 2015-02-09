@@ -1,4 +1,4 @@
-.app-action-show {
+#app-action-show {
   width: 80%;
 
   margin: 20px auto;
@@ -23,14 +23,14 @@
   .duration::before { content: '\f0e4'; }
 
   .action {
-    padding: 5px 10px;
+    padding: 10px;
 
     border: 1px solid;
     border-bottom: 3px solid;
     border-top-left-radius: 4px;
     border-top-right-radius: 4px;
 
-    div:first-child { padding-bottom: 5px; }
+    div:first-child { padding-bottom: 10px; }
 
     .app, .user {
       display: inline-block;
