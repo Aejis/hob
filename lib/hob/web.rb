@@ -33,7 +33,7 @@ module Hob
     post '/login' do
       warden.authenticate!
 
-      redirect to('/apps')
+      redirect to('/')
     end
 
     post '/register' do
@@ -51,6 +51,8 @@ module Hob
     end
 
     get '/' do
+      authorize!
+
       actions = World.db[:actions].order(Sequel.desc(:finished_at)).limit(10)
       apps = World.db[:apps].map { |app| App.new(app[:name], app) }
 
@@ -58,6 +60,8 @@ module Hob
     end
 
     get '/users/?(.:format)?' do
+      authorize_admin!
+
       users = World.db[:users].all
 
       respond_to(params[:format], :user_list, { users: users })
@@ -94,24 +98,13 @@ module Hob
       respond_to(params[:format], :app_action_show, { app: app, action: action, logs: logs })
     end
 
-    # Create
-    #
-    # Params:
-    # - name
-    # - repo
-    # - branch
-    # - ruby_version
-    # - prepare_commands
-    # - start_commands
-    # - stop_commands
-    #
     get '/apps/create' do
       authorize!
 
       ruby = Lang::Ruby.new
       app = App.new('')
 
-      erb(:app_create, locals: { app: app, ruby_versions: ruby.versions })
+      erb(:app_create, locals: { app: app, ruby_versions: ruby.versions, errors: {} })
     end
 
     # Show app
@@ -133,13 +126,32 @@ module Hob
       erb(:app_edit, locals: { app: app, ruby_versions: ruby.versions })
     end
 
+    # Create
+    #
+    # Params:
+    # - name
+    # - repo
+    # - branch
+    # - ruby_version
+    # - prepare_commands
+    # - test_commands
+    # - start_commands
+    # - stop_commands
+    #
     post '/apps/?(.:format)?' do
       authorize!
 
       app = ::Hob::App.new(params[:name], params)
-      created = ::Hob::App::Create.new(app).call
 
-      respond_or_redirect(params[:format], "/apps/#{app.name}/envs", created)
+      if app.valid?
+        created = ::Hob::App::Create.new(app).call
+
+        respond_or_redirect(params[:format], "/apps/#{app.name}/envs", created)
+      else
+        ruby = Lang::Ruby.new
+
+        erb(:app_create, locals: { app: app, ruby_versions: ruby.versions, errors: app.errors })
+      end
     end
 
     patch '/apps/:app_name/?(.:format)?' do

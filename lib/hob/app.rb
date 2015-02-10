@@ -3,8 +3,9 @@ module Hob
   # Class: Application settings
   #
   class App
-
     APPS_DIR = 'apps'.freeze
+
+    REG_NAME = /^[A-z_-]+$/.freeze
 
     ##
     # Application name
@@ -101,6 +102,8 @@ module Hob
     # Save app data to database
     #
     def persist!
+      return false unless valid?
+
       if persisted?
         World.db[:apps].where(name: name).update(@diff) unless @diff.empty?
         @name = @params[:name]
@@ -122,6 +125,19 @@ module Hob
     #
     def name_changed?
       @diff.has_key?(:name)
+    end
+
+    def errors
+      errors = {}
+      errors[:name] = 'Must contain only latin letters, dashes or underscores' unless REG_NAME.match(@params[:name])
+      errors
+    end
+
+    ##
+    # Returns: true if application properties are valid
+    #
+    def valid?
+      !errors.any?
     end
 
   private

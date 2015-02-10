@@ -389,6 +389,7 @@ header.main {
 
 .pretty-form label {
   display: block;
+  padding: 0 0 2px 4px;
   font-size: 13px;
   color: #435879; }
 .pretty-form input[type="text"], .pretty-form textarea {
@@ -400,6 +401,13 @@ header.main {
   .pretty-form input[type="text"]:focus, .pretty-form textarea:focus {
     outline: none;
     border-color: #87b35c; }
+.pretty-form span.error {
+  margin-left: 4px;
+  padding: 2px 4px;
+  font-size: 13px;
+  color: #c94050;
+  border-color: #e89ba8;
+  background-color: #f7e6e9; }
 
 .action-list {
   width: 80%;
@@ -846,9 +854,6 @@ div#app {
 
 .app-form .form-group {
   margin-bottom: 1em; }
-.app-form label {
-  display: block;
-  padding: 0 0 2px 4px; }
 .app-form input[type="text"], .app-form textarea {
   width: 100%; }
 .app-form textarea {

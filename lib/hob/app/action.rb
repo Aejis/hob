@@ -28,6 +28,7 @@ module Hob
           prepare
           _stop
           link_current
+          link_shared
           _start
         end
       end
@@ -44,6 +45,8 @@ module Hob
       end
 
       def checkout
+        return unless app.repo
+
         Dir.chdir(app.paths.repo) do
           log(Command.new('git fetch origin'))
 
@@ -69,6 +72,14 @@ module Hob
       def link_current
         FileUtils.rm_rf(app.paths.current)
         FileUtils.ln_s(app.paths.release(@number), app.paths.current)
+      end
+
+      def link_shared
+        files_for_linkage(app.paths.shared).flatten.each do |file|
+          target = app.paths.current.join(file)
+          FileUtils.rm(target) if File.exists?(target)
+          FileUtils.ln_s(app.paths.shared.join(file), target)
+        end
       end
 
       def log(entry)
@@ -153,6 +164,19 @@ module Hob
             app.stop_commands.each_line do |command|
               log(Command.new(command))
             end
+          end
+        end
+      end
+
+      def files_for_linkage(dir)
+        Dir[dir.join('*')].map do |file|
+          rel    = Pathname.new(file).relative_path_from(app.paths.shared)
+          target = app.paths.current.join(rel)
+
+          if File.exists?(target) && File.directory?(target)
+            files_for_linkage(app.paths.shared.join(rel))
+          else
+            rel
           end
         end
       end

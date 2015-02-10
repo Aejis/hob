@@ -7,7 +7,7 @@
     </nav>
 
     <form action="/apps" method="POST" class="content app-form pretty-form">
-        <%= erb :'_app_form', layout: false, locals: { app: app, ruby_versions: ruby_versions } %>
+        <%= erb :'_app_form', layout: false, locals: { app: app, ruby_versions: ruby_versions, errors: errors } %>
 
         <button type="submit" class="button add">Create</button>
     </form>

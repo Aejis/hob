@@ -6,7 +6,7 @@ module Hob
 
       def call
         create_filesystem
-        clone_repo
+        clone_repo if app.repo
         persist
       end
 
