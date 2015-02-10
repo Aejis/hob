@@ -111,6 +111,7 @@ module Hob
         db_uri:    db_uri,
         server:    server,
         pid_file:  pid_file,
+        hostname:  hostname,
         github:    config[:github]
       }
     end
@@ -137,6 +138,10 @@ module Hob
 
     def server
       (config['server'] || :webrick).to_sym
+    end
+
+    def hostname
+      config['hostname'] || `hostname`.strip
     end
   end
 end

@@ -84,10 +84,17 @@ module Hob
   private
 
     def initialize(params)
-      params.delete(:admin)
+      props = symbolize(params.to_h)
+      props.delete('admin')
 
-      @params = params
+      @params = props
       @admin  = false
+    end
+
+    def symbolize(params)
+      params.each_with_object({}) do |(key, value), result|
+        result[key.to_sym] = value
+      end
     end
 
   end

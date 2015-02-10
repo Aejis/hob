@@ -19,9 +19,9 @@ module Hob
       end
 
       def authorize_admin!(*args)
-        warden.authenticate!(*args)
+        warden.authenticate!(*args) unless current_user
 
-        halt([401, 'Unauthorized User']) unless current_user && current_user.admin?
+        halt([401, 'Unauthorized User']) unless current_user.admin?
       end
     end
 

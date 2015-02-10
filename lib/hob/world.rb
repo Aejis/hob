@@ -35,6 +35,8 @@ module Hob
 
     attr_reader :github_options
 
+    attr_reader :hostname
+
     def db
       self.class.mutex.synchronize do
         @db ||= Sequel.connect(@db_uri)
@@ -45,10 +47,11 @@ module Hob
 
     def initialize(options)
       @root_path = Pathname.new(options[:root_path])
-      @port   = options[:port]
-      @pid    = options[:pid_file]
-      @server = options[:server]
-      @db_uri = options[:db_uri]
+      @port      = options[:port]
+      @pid       = options[:pid_file]
+      @server    = options[:server]
+      @db_uri    = options[:db_uri]
+      @hostname  = options[:hostname]
       # @github_options = {
       #   client_id: options[:github][:client_id],
       #   secret: options[:github][:secret]

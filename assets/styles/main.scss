@@ -4,13 +4,13 @@
   box-sizing: border-box;
 }
 
-@import 'main/layout';
-
 @import 'lib/fonts';
 @import 'lib/buttons';
 @import 'lib/forms';
 
 @import 'main/shared/action_list';
+
+@import 'main/layout';
 
 @import 'main/screens/login';
 @import 'main/screens/index';

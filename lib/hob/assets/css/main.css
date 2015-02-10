@@ -320,21 +320,6 @@ td, th {
 * {
   box-sizing: border-box; }
 
-header.main {
-  padding: 14px 10px;
-  font-size: 14px;
-  background-color: #707e94; }
-  header.main nav ul {
-    margin: 0;
-    padding: 0;
-    list-style: none; }
-    header.main nav ul li {
-      display: inline-block;
-      margin-right: 1em; }
-      header.main nav ul li a {
-        color: #fff;
-        text-decoration: none; }
-
 @font-face {
   font-family: 'FontAwesome';
   src: url('/fonts/fontawesome-webfont.eot');
@@ -482,9 +467,57 @@ header.main {
       .action-list .action.running .type a span {
         border-color: #a1adc2; }
 
+header.main {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  padding: 14px 10px;
+  font-size: 14px;
+  background-color: #707e94; }
+  header.main nav ul {
+    margin: 0;
+    padding: 0;
+    list-style: none; }
+    header.main nav ul li {
+      display: inline-block;
+      margin-right: 1em; }
+      header.main nav ul li a {
+        color: #e9edf2;
+        text-decoration: none; }
+  header.main h1 {
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+    color: #fff; }
+  header.main .user .name {
+    color: #acbed5; }
+  header.main .user .logout {
+    font-family: FontAwesome;
+    text-rendering: auto;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    -webkit-transform: translate(0, 0);
+    transform: translate(0, 0);
+    text-decoration: none;
+    color: #acbed5; }
+
 .login_form {
   margin: 15% auto;
   width: 300px; }
+  .login_form h1 {
+    margin: 0 0 10px 0;
+    font-size: 18px;
+    text-align: center;
+    color: #647186; }
   .login_form .inputs {
     margin-bottom: 10px;
     border: 4px solid #ededed;

@@ -10,9 +10,16 @@
         <nav>
             <ul>
                 <li><a href="/">Apps</a></li>
+                <% if current_user.admin? %>
                 <li><a href="/users">Users</a></li>
+                <% end %>
             </ul>
         </nav>
+        <h1><%= Hob::World.hostname %></h1>
+        <div class="user">
+            <span class="name"><%= current_user.name %></span>
+            <a href="/logout" class="logout" title="logout">&#xf08b;</a>
+        </div>
     </header>
 
     <%= yield %>

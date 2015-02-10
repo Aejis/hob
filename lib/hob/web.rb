@@ -30,6 +30,12 @@ module Hob
       erb(:register, layout: :base)
     end
 
+    get '/logout' do
+      warden.logout
+
+      redirect to('/login')
+    end
+
     post '/login' do
       warden.authenticate!
 

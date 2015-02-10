@@ -3,7 +3,7 @@ Sequel.migration do
     create_table(:users) do
       primary_key :id
 
-      column :login,        String, null: false
+      column :login,        String, null: false, unique: true
       column :name,         String
       column :password,     String
       column :github_name,  String, unique: true
