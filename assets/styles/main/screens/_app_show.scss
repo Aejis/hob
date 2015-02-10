@@ -46,6 +46,10 @@
         margin-right: 2px;
       }
 
+      span {
+        text-decoration: underline;
+      }
+
       &.github::before { content: '\f09b'; }
 
       &.git::before { content: '\f1d3'; }
@@ -70,137 +74,7 @@
       }
 
       .button {
-        padding: 8px 10px;
-      }
-    }
-  }
-
-  .action-list {
-    width: 80%;
-    margin: 20px auto;
-
-    table {
-      width: 100%;
-    }
-
-    .action {
-      border-left: 3px solid;
-      border-bottom: 1px solid;
-
-      a {
-        display: block;
-        padding: 10px 5px;
-
-        font-size: 14px;
-        color: #687689;
-        text-decoration: none;
-      }
-
-      .user a, .revision a, .duration a, .time, .date {
-        &::before {
-          @include icon-font;
-          margin-right: 4px;
-        }
-      }
-
-      .type {
-        a span {
-          padding: 2px 4px;
-
-          border: 1px solid;
-          border-radius: 3px;
-        }
-      }
-
-      .user {
-        a::before {
-          content: '\f21b';
-        }
-      }
-
-      .revision {
-        a::before {
-          content: '\f1d2';
-        }
-      }
-
-      .time {
-        &::before {
-          content: '\f017';
-        }
-      }
-
-      .date {
-        &::before {
-          content: '\f073';
-        }
-      }
-
-      .duration {
-        a::before {
-          content: '\f0e4';
-        }
-      }
-
-      .datetime {
-        text-align: right;
-
-        .date { margin-right: 10px; }
-      }
-
-      &.success {
-        border-left-color: #539474;
-        border-bottom-color: darken(#ebf6f1, 5%);
-
-        background-color: #ebf6f1;
-
-        &:hover {
-          background-color: lighten(#ebf6f1, 2%);
-        }
-
-        .type a span {
-          color: #539474;
-          border-color: #a0c9b5;
-        }
-
-        .user a {
-          color: #539474;
-        }
-      }
-
-      &.fail {
-        border-left-color: #c94050;
-        border-bottom-color: darken(#f7e6e9, 5%);
-
-        background-color: #f7e6e9;
-
-        &:hover {
-          background-color: lighten(#f7e6e9, 2%);
-        }
-
-        .type a span {
-          color: #c94050;
-          border-color: #e89ba8;
-        }
-
-        .user a {
-          color: #c94050;
-        }
-      }
-
-      &.running {
-        border-left-color: #707e93;
-        border-bottom-color: darken(#edf0f5, 5%);
-
-        background-color: #edf0f5;
-
-        &:hover {
-          background-color: lighten(#edf0f5, 2%);
-        }
-
-        .type a span {
-          border-color: #a1adc2;
-        }
+        padding: 8px 10px 5px;
       }
     }
   }

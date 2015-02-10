@@ -1,0 +1,53 @@
+#index {
+  display: flex;
+
+  h2 {
+    margin-top: 0;
+
+    color: #647186;
+  }
+
+  #apps, #actions {
+    padding: 14px 10px;
+  }
+
+  #apps {
+    flex: 5;
+
+    header {
+      margin-bottom: 20px;
+
+      h2 {
+        display: inline-block;
+
+        margin-bottom: 0;
+        margin-right: 10px;
+
+        vertical-align: bottom;
+      }
+
+      .button {
+        padding: 6px 10px 3px;
+
+        &::before {
+          @include icon-font;
+          margin-right: 4px;
+          content: '\f067';
+
+          font-size: 14px;
+        }
+      }
+    }
+  }
+
+  #actions {
+    flex: 3;
+
+    .action-list {
+      margin: 0;
+      padding: 0;
+
+      width: 100%;
+    }
+  }
+}

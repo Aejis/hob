@@ -21,12 +21,18 @@
 
             <span class="number"><%= action[:number] %></span>
         </div>
+
+        <% if !action[:is_success] && action[:finished_at] && app.github? %>
+            <div class="actions">
+                <a href="https://github.com/<%= app.github %>/issues/new" class="button github" id="github-issue">Create issue on GitHub</a>
+            </div>
+        <% end %>
     </header>
     <ul>
         <% logs.each do |log| %>
         <li class="<%= log[:status] == 0 ? 'success' : 'fail' %>">
             <div class="info">
-                <span><%= log[:command] %></span>
+                <span class="command"><%= log[:command] %></span>
                 <span class="additional">
                     <span class="duration"><%= log[:elapsed_time] %></span>
                     <span class="status"><%= log[:status] %></span>

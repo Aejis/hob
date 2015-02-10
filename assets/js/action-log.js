@@ -20,4 +20,17 @@
       }
     }, false);
   });
+
+  var githubButton;
+
+  if (githubButton = document.getElementById('github-issue')) {
+    var logEntry = document.querySelector('li.fail'),
+        command  = logEntry.querySelector('.command').innerText,
+        log      = logEntry.querySelector('.log pre').innerText,
+        action   = document.querySelector('.action .type').innerText,
+        message;
+
+    message = encodeURI('title=Hob ' + action + ' error: ' + command) + '&' + encodeURI('body=' + log);
+    githubButton.href = githubButton.href + '?' + message;
+  }
 })();

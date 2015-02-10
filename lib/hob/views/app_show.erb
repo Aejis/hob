@@ -7,7 +7,7 @@
 
         <div class="info">
             <% if app.github? %>
-                <a class="repo github" href="https://github.com/<%= app.github %>"><%= app.github %></a>
+                <a class="repo github" href="https://github.com/<%= app.github %>"><span><%= app.github %></span></a>
             <% else %>
                 <span class="repo git"><%= app.repo %></span>
             <% end %>
@@ -37,7 +37,7 @@
             <tr class="action <%= l[:type] %> <%= l[:is_success] ? 'success' : (l[:finished_at] ? 'fail' : 'running') %>">
                 <td class="type"><a href="/apps/<%= app.name %>/actions/<%= l[:id] %>"><span><%= l[:type] %></span></a></td>
                 <td class="user"><a href="/apps/<%= app.name %>/actions/<%= l[:id] %>"><%= l[:requested_by] %></a></td>
-                <td class="revision"><a href="/apps/<%= app.name %>/actions/<%= l[:id] %>"><%= l[:revision] %></a></td>
+                <td class="revision"><a href="/apps/<%= app.name %>/actions/<%= l[:id] %>"><%= l[:revision][0..6] %></a></td>
                 <td class="duration"><a href="/apps/<%= app.name %>/actions/<%= l[:id] %>"><%= l[:elapsed_time].round(2) %>s</a></td>
                 <td class="datetime">
                     <a href="/apps/<%= app.name %>/actions/<%= l[:id] %>">

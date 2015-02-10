@@ -335,19 +335,57 @@ header.main {
         color: #fff;
         text-decoration: none; }
 
+@font-face {
+  font-family: 'FontAwesome';
+  src: url('/fonts/fontawesome-webfont.eot');
+  src: url('/fonts/fontawesome-webfont.eot') format('embedded-opentype'), url('/fonts/fontawesome-webfont.woff') format('woff'), url('/fonts/fontawesome-webfont.woff2') format('woff2'), url('/fonts/fontawesome-webfont.ttf') format('truetype'), url('/fonts/fontawesome-webfont.svg') format('svg');
+  font-weight: normal;
+  font-style: normal; }
+
 .button {
   display: inline-block;
-  padding: 10px 20px;
+  padding: 10px 20px 7px;
   border: none;
+  border-bottom: 2px solid #464970;
   border-radius: 4px;
   text-align: center;
   text-decoration: none;
   color: #fff;
-  background-color: #64689e; }
+  background-color: #64689e;
+  outline: none; }
+  .button:hover {
+    background-color: #7477a8; }
   .button.add {
-    background-color: #6db955; }
+    background-color: #6db955;
+    border-color: #4c8938; }
+    .button.add:hover {
+      background-color: #7dc067; }
   .button.delete {
-    background-color: #ed5363; }
+    background-color: #ed5363;
+    border-color: #dc172c; }
+    .button.delete:hover {
+      background-color: #ef6a78; }
+  .button.github {
+    background-color: #414141;
+    border-color: #1b1b1b; }
+    .button.github:hover {
+      background-color: #4e4e4e; }
+    .button.github::before {
+      font-family: FontAwesome;
+      text-rendering: auto;
+      -moz-osx-font-smoothing: grayscale;
+      -webkit-font-smoothing: antialiased;
+      -webkit-transform: translate(0, 0);
+      transform: translate(0, 0);
+      margin-right: 4px;
+      content: '\f09b'; }
+  .button.plain {
+    border: none; }
+  .button:active {
+    position: relative;
+    top: 2px;
+    margin-top: 2px;
+    border: none; }
 
 .pretty-form label {
   display: block;
@@ -363,12 +401,78 @@ header.main {
     outline: none;
     border-color: #87b35c; }
 
-@font-face {
-  font-family: 'FontAwesome';
-  src: url('/fonts/fontawesome-webfont.eot');
-  src: url('/fonts/fontawesome-webfont.eot') format('embedded-opentype'), url('/fonts/fontawesome-webfont.woff') format('woff'), url('/fonts/fontawesome-webfont.woff2') format('woff2'), url('/fonts/fontawesome-webfont.ttf') format('truetype'), url('/fonts/fontawesome-webfont.svg') format('svg');
-  font-weight: normal;
-  font-style: normal; }
+.action-list {
+  width: 80%;
+  margin: 20px auto; }
+  .action-list table {
+    width: 100%; }
+  .action-list .action {
+    border-left: 3px solid;
+    border-bottom: 1px solid; }
+    .action-list .action a {
+      display: block;
+      padding: 10px 5px;
+      font-size: 14px;
+      color: #687689;
+      text-decoration: none; }
+    .action-list .action .user a::before, .action-list .action .revision a::before, .action-list .action .duration a::before, .action-list .action .time::before, .action-list .action .date::before {
+      font-family: FontAwesome;
+      text-rendering: auto;
+      -moz-osx-font-smoothing: grayscale;
+      -webkit-font-smoothing: antialiased;
+      -webkit-transform: translate(0, 0);
+      transform: translate(0, 0);
+      margin-right: 4px; }
+    .action-list .action .app {
+      font-weight: bold; }
+    .action-list .action .type a span {
+      padding: 2px 4px;
+      border: 1px solid;
+      border-radius: 3px; }
+    .action-list .action .user a::before {
+      content: '\f21b'; }
+    .action-list .action .revision a::before {
+      content: '\f1d2'; }
+    .action-list .action .time::before {
+      content: '\f017'; }
+    .action-list .action .date::before {
+      content: '\f073'; }
+    .action-list .action .duration a::before {
+      content: '\f0e4'; }
+    .action-list .action .datetime {
+      text-align: right; }
+      .action-list .action .datetime .date {
+        margin-right: 10px; }
+    .action-list .action.success {
+      border-left-color: #539474;
+      border-bottom-color: #d9eee5;
+      background-color: #ebf6f1; }
+      .action-list .action.success:hover {
+        background-color: #f2f9f6; }
+      .action-list .action.success .type a span {
+        color: #539474;
+        border-color: #a0c9b5; }
+      .action-list .action.success .user a {
+        color: #539474; }
+    .action-list .action.fail {
+      border-left-color: #c94050;
+      border-bottom-color: #f1d3d8;
+      background-color: #f7e6e9; }
+      .action-list .action.fail:hover {
+        background-color: #f9eef0; }
+      .action-list .action.fail .type a span {
+        color: #c94050;
+        border-color: #e89ba8; }
+      .action-list .action.fail .user a {
+        color: #c94050; }
+    .action-list .action.running {
+      border-left-color: #707e93;
+      border-bottom-color: #dde2ec;
+      background-color: #edf0f5; }
+      .action-list .action.running:hover {
+        background-color: #f4f5f9; }
+      .action-list .action.running .type a span {
+        border-color: #a1adc2; }
 
 .login_form {
   margin: 15% auto;
@@ -405,6 +509,53 @@ header.main {
   .login_form button {
     width: 100%;
     background-color: #64689e; }
+  .login_form .links {
+    margin-top: 8px;
+    font-size: 14px;
+    text-align: center; }
+    .login_form .links a {
+      color: #4d4d4d; }
+
+#index {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex; }
+  #index h2 {
+    margin-top: 0;
+    color: #647186; }
+  #index #apps, #index #actions {
+    padding: 14px 10px; }
+  #index #apps {
+    -webkit-flex: 5;
+    -ms-flex: 5;
+    flex: 5; }
+    #index #apps header {
+      margin-bottom: 20px; }
+      #index #apps header h2 {
+        display: inline-block;
+        margin-bottom: 0;
+        margin-right: 10px;
+        vertical-align: bottom; }
+      #index #apps header .button {
+        padding: 6px 10px 3px; }
+        #index #apps header .button::before {
+          font-family: FontAwesome;
+          text-rendering: auto;
+          -moz-osx-font-smoothing: grayscale;
+          -webkit-font-smoothing: antialiased;
+          -webkit-transform: translate(0, 0);
+          transform: translate(0, 0);
+          margin-right: 4px;
+          content: '\f067';
+          font-size: 14px; }
+  #index #actions {
+    -webkit-flex: 3;
+    -ms-flex: 3;
+    flex: 3; }
+    #index #actions .action-list {
+      margin: 0;
+      padding: 0;
+      width: 100%; }
 
 div#app {
   display: -webkit-flex;
@@ -439,6 +590,8 @@ div#app {
       margin: 0 0 5px 0;
       font-size: 18px;
       color: #647186; }
+      .app-short a h3:hover {
+        color: #707e94; }
     .app-short a .repo {
       margin-right: 5px;
       font-size: 12px;
@@ -519,6 +672,8 @@ div#app {
       -webkit-transform: translate(0, 0);
       transform: translate(0, 0);
       margin-right: 2px; }
+    .app-show header .repo span {
+      text-decoration: underline; }
     .app-show header .repo.github::before {
       content: '\f09b'; }
     .app-show header .repo.git::before {
@@ -540,84 +695,14 @@ div#app {
     .app-show header .actions form {
       display: inline-block; }
     .app-show header .actions .button {
-      padding: 8px 10px; }
-.app-show .action-list {
-  width: 80%;
-  margin: 20px auto; }
-  .app-show .action-list table {
-    width: 100%; }
-  .app-show .action-list .action {
-    border-left: 3px solid;
-    border-bottom: 1px solid; }
-    .app-show .action-list .action a {
-      display: block;
-      padding: 10px 5px;
-      font-size: 14px;
-      color: #687689;
-      text-decoration: none; }
-    .app-show .action-list .action .user a::before, .app-show .action-list .action .revision a::before, .app-show .action-list .action .duration a::before, .app-show .action-list .action .time::before, .app-show .action-list .action .date::before {
-      font-family: FontAwesome;
-      text-rendering: auto;
-      -moz-osx-font-smoothing: grayscale;
-      -webkit-font-smoothing: antialiased;
-      -webkit-transform: translate(0, 0);
-      transform: translate(0, 0);
-      margin-right: 4px; }
-    .app-show .action-list .action .type a span {
-      padding: 2px 4px;
-      border: 1px solid;
-      border-radius: 3px; }
-    .app-show .action-list .action .user a::before {
-      content: '\f21b'; }
-    .app-show .action-list .action .revision a::before {
-      content: '\f1d2'; }
-    .app-show .action-list .action .time::before {
-      content: '\f017'; }
-    .app-show .action-list .action .date::before {
-      content: '\f073'; }
-    .app-show .action-list .action .duration a::before {
-      content: '\f0e4'; }
-    .app-show .action-list .action .datetime {
-      text-align: right; }
-      .app-show .action-list .action .datetime .date {
-        margin-right: 10px; }
-    .app-show .action-list .action.success {
-      border-left-color: #539474;
-      border-bottom-color: #d9eee5;
-      background-color: #ebf6f1; }
-      .app-show .action-list .action.success:hover {
-        background-color: #f2f9f6; }
-      .app-show .action-list .action.success .type a span {
-        color: #539474;
-        border-color: #a0c9b5; }
-      .app-show .action-list .action.success .user a {
-        color: #539474; }
-    .app-show .action-list .action.fail {
-      border-left-color: #c94050;
-      border-bottom-color: #f1d3d8;
-      background-color: #f7e6e9; }
-      .app-show .action-list .action.fail:hover {
-        background-color: #f9eef0; }
-      .app-show .action-list .action.fail .type a span {
-        color: #c94050;
-        border-color: #e89ba8; }
-      .app-show .action-list .action.fail .user a {
-        color: #c94050; }
-    .app-show .action-list .action.running {
-      border-left-color: #707e93;
-      border-bottom-color: #dde2ec;
-      background-color: #edf0f5; }
-      .app-show .action-list .action.running:hover {
-        background-color: #f4f5f9; }
-      .app-show .action-list .action.running .type a span {
-        border-color: #a1adc2; }
+      padding: 8px 10px 5px; }
 
-.app-action-show {
+#app-action-show {
   width: 80%;
   margin: 20px auto;
   font-size: 14px;
   color: #687689; }
-  .app-action-show .user::before, .app-action-show .revision::before, .app-action-show .date::before, .app-action-show .number::before, .app-action-show .started::before, .app-action-show .duration::before {
+  #app-action-show .user::before, #app-action-show .revision::before, #app-action-show .date::before, #app-action-show .number::before, #app-action-show .started::before, #app-action-show .duration::before {
     font-family: FontAwesome;
     text-rendering: auto;
     -moz-osx-font-smoothing: grayscale;
@@ -625,77 +710,82 @@ div#app {
     -webkit-transform: translate(0, 0);
     transform: translate(0, 0);
     margin-right: 4px; }
-  .app-action-show .user::before {
+  #app-action-show .user::before {
     content: '\f21b'; }
-  .app-action-show .git::before {
+  #app-action-show .git::before {
     content: '\f1d2'; }
-  .app-action-show .github::before {
+  #app-action-show .github::before {
     content: '\f09b'; }
-  .app-action-show .date::before {
+  #app-action-show .date::before {
     content: '\f073'; }
-  .app-action-show .number::before {
+  #app-action-show .number::before {
     content: '\f115'; }
-  .app-action-show .started::before {
+  #app-action-show .started::before {
     content: '\f017'; }
-  .app-action-show .duration::before {
+  #app-action-show .duration::before {
     content: '\f0e4'; }
-  .app-action-show .action {
-    padding: 5px 10px;
+  #app-action-show .action {
     border: 1px solid;
     border-bottom: 3px solid;
     border-top-left-radius: 4px;
     border-top-right-radius: 4px; }
-    .app-action-show .action div:first-child {
-      padding-bottom: 5px; }
-    .app-action-show .action .app, .app-action-show .action .user {
+    #app-action-show .action div {
+      padding: 8px 10px; }
+    #app-action-show .action div:first-child {
+      padding-bottom: 10px; }
+    #app-action-show .action div.actions {
+      text-align: center; }
+    #app-action-show .action .app, #app-action-show .action .user {
       display: inline-block;
       width: 28%; }
-    .app-action-show .action .revision {
+    #app-action-show .action .revision {
       margin-right: 4%;
       color: #687689;
       text-decoration: none; }
-    .app-action-show .action a.revision span {
+    #app-action-show .action a.revision span {
       text-decoration: underline; }
-    .app-action-show .action .date, .app-action-show .action .finished {
+    #app-action-show .action .date, #app-action-show .action .finished {
       margin-right: 14px; }
-    .app-action-show .action .app {
+    #app-action-show .action .app {
       font-size: 18px;
       font-weight: bold; }
-    .app-action-show .action .type {
+    #app-action-show .action .type {
       float: right;
       display: inline-block;
       padding: 2px 4px;
       border: 1px solid;
       border-radius: 3px;
       font-size: 16px; }
-    .app-action-show .action.success {
+    #app-action-show .action.success {
       border-color: #7db69a;
       background-color: #ebf6f1; }
-      .app-action-show .action.success .type, .app-action-show .action.success .app, .app-action-show .action.success .user {
+      #app-action-show .action.success .type, #app-action-show .action.success .app, #app-action-show .action.success .user {
         color: #539474; }
-      .app-action-show .action.success .type {
+      #app-action-show .action.success .type {
         border-color: #a0c9b5; }
-    .app-action-show .action.fail {
+    #app-action-show .action.fail {
       border-color: #cf5462;
       background-color: #f7e6e9; }
-      .app-action-show .action.fail .type, .app-action-show .action.fail .app, .app-action-show .action.fail .user {
+      #app-action-show .action.fail .type, #app-action-show .action.fail .app, #app-action-show .action.fail .user {
         color: #c94050; }
-      .app-action-show .action.fail .type {
+      #app-action-show .action.fail .type {
         border-color: #e89ba8; }
-    .app-action-show .action.running {
+      #app-action-show .action.fail .actions {
+        background-color: #f1d3d8; }
+    #app-action-show .action.running {
       border-color: #707e93;
       background-color: #edf0f5; }
-      .app-action-show .action.running .app {
+      #app-action-show .action.running .app {
         color: #687689; }
-      .app-action-show .action.running .type {
+      #app-action-show .action.running .type {
         border-color: #a1adc2; }
-  .app-action-show ul {
+  #app-action-show ul {
     margin: 0;
     padding: 0;
     list-style: none; }
-    .app-action-show ul li {
+    #app-action-show ul li {
       width: 100%; }
-      .app-action-show ul li .info::before {
+      #app-action-show ul li .info::before {
         display: inline-block;
         font-family: FontAwesome;
         text-rendering: auto;
@@ -705,53 +795,53 @@ div#app {
         transform: translate(0, 0);
         width: 14px;
         margin-right: 2px; }
-      .app-action-show ul li.success .info::before {
+      #app-action-show ul li.success .info::before {
         content: '\f00c';
         color: #539474; }
-      .app-action-show ul li.fail .info::before {
+      #app-action-show ul li.fail .info::before {
         content: '\f00d';
         color: #c94050; }
-      .app-action-show ul li:nth-child(odd) .info {
+      #app-action-show ul li:nth-child(odd) .info {
         background-color: #edf0f5; }
-      .app-action-show ul li:nth-child(even) .info {
+      #app-action-show ul li:nth-child(even) .info {
         background-color: #fafcff; }
-      .app-action-show ul li.opened .log {
+      #app-action-show ul li.opened .log {
         display: block; }
-    .app-action-show ul .info {
-      padding: 4px; }
-      .app-action-show ul .info .additional {
+    #app-action-show ul .info {
+      padding: 6px; }
+      #app-action-show ul .info .additional {
         float: right; }
-      .app-action-show ul .info .status {
+      #app-action-show ul .info .status {
         display: inline-block;
         width: 3em;
         text-align: right; }
-    .app-action-show ul .log {
+    #app-action-show ul .log {
       display: none;
       padding: 5px 10px; }
 
-.app-action-show .log {
+#app-action-show .log {
   font-family: monospace;
   background-color: #314752;
   color: #9cb9c8; }
-  .app-action-show .log .green {
+  #app-action-show .log .green {
     color: #5b963d; }
-  .app-action-show .log .blue {
+  #app-action-show .log .blue {
     color: #257fad; }
-  .app-action-show .log .yellow {
+  #app-action-show .log .yellow {
     color: #8a8a0f; }
-  .app-action-show .log .red {
+  #app-action-show .log .red {
     color: #dd3838; }
-  .app-action-show .log .magenta {
+  #app-action-show .log .magenta {
     color: #b72dd2; }
-  .app-action-show .log .cyan {
+  #app-action-show .log .cyan {
     color: #2c9a8f; }
-  .app-action-show .log .grey {
+  #app-action-show .log .grey {
     color: #516d7b; }
-  .app-action-show .log .bold {
+  #app-action-show .log .bold {
     font-weight: bold; }
-  .app-action-show .log .italic {
+  #app-action-show .log .italic {
     font-style: italic; }
-  .app-action-show .log .underline {
+  #app-action-show .log .underline {
     text-decoration: underline; }
 
 .app-form .form-group {
@@ -777,7 +867,7 @@ div#app {
 .app-env-form .inline-button {
   display: inline-block; }
   .app-env-form .inline-button button {
-    padding: 7px;
+    padding: 7px 7px 5px;
     font-size: 13px; }
 
 #app nav {

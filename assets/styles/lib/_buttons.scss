@@ -1,9 +1,14 @@
 .button {
+  $color-normal: #64689e;
+  $color-add: #6db955;
+  $color-delete: #ed5363;
+
   display: inline-block;
 
-  padding: 10px 20px;
+  padding: 10px 20px 7px;
 
   border: none;
+  border-bottom: 2px solid darken($color-normal, 15%);
   border-radius: 4px;
 
   text: {
@@ -13,13 +18,46 @@
 
   color: #fff;
 
-  background-color: #64689e;
+  background-color: $color-normal;
+  outline: none;
+
+  &:hover {
+    background-color: lighten($color-normal, 5%);
+  }
 
   &.add {
-    background-color: #6db955;
+    background-color: $color-add;
+    border-color: darken($color-add, 15%);
+    &:hover { background-color: lighten($color-add, 5%); }
   }
 
   &.delete {
-    background-color: #ed5363;
+    background-color: $color-delete;
+    border-color: darken($color-delete, 15%);
+    &:hover { background-color: lighten($color-delete, 5%); }
+  }
+
+  &.github {
+    background-color: #414141;
+    border-color: darken(#414141, 15%);
+
+    &:hover { background-color: lighten(#414141, 5%); }
+
+    &::before {
+      @include icon-font;
+      margin-right: 4px;
+      content: '\f09b';
+    }
+  }
+
+  &.plain {
+    border: none;
+  }
+
+  &:active {
+    position: relative;
+    top: 2px;
+    margin-top: 2px;
+    border: none;
   }
 }

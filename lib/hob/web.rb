@@ -50,6 +50,13 @@ module Hob
       redirect to('/login')
     end
 
+    get '/' do
+      actions = World.db[:actions].order(Sequel.desc(:finished_at)).limit(10)
+      apps = World.db[:apps].map { |app| App.new(app[:name], app) }
+
+      erb(:index, locals: { actions: actions, apps: apps })
+    end
+
     get '/users/?(.:format)?' do
       users = World.db[:users].all
 
@@ -208,7 +215,7 @@ module Hob
       action = App::Action.new(app, current_user)
       action.stop
 
-      respond_to(params[:format], :app_action_show, { action: action })
+      redirect to("/apps/#{app.name}/actions/#{action.id}")
     end
 
     # Start app
@@ -220,7 +227,7 @@ module Hob
       action = App::Action.new(app, current_user)
       action.start
 
-      respond_to(params[:format], :app_action_show, { action: action })
+      redirect to("/apps/#{app.name}/actions/#{action.id}")
     end
 
   private

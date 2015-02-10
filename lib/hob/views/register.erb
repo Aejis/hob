@@ -1,7 +1,9 @@
-<form action="/register" method="post">
-    <label for="login">Username</label><input type="text" name="login" value="" id="login">
+<form class="login_form" action="/register" method="post">
+    <div class="inputs">
+        <input type="text" name="login" placeholder="Login">
+        <input type="text" name="name" placeholder="Full name">
+        <input type="password" name="password" placeholder="Password">
+    </div>
 
-    <label for="password">password</label><input type="password" name="password" value="" id="password">
-
-    <p><input type="submit" value="Continue &rarr;"></p>
+    <button class="button login">Register</button>
 </form>

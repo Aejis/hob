@@ -23,14 +23,20 @@
   .duration::before { content: '\f0e4'; }
 
   .action {
-    padding: 10px;
-
     border: 1px solid;
     border-bottom: 3px solid;
     border-top-left-radius: 4px;
     border-top-right-radius: 4px;
 
+    div {
+      padding: 8px 10px;
+    }
+
     div:first-child { padding-bottom: 10px; }
+
+    div.actions {
+      text-align: center;
+    }
 
     .app, .user {
       display: inline-block;
@@ -97,6 +103,10 @@
       .type {
         border-color: #e89ba8;
       }
+
+      .actions {
+        background-color: darken(#f7e6e9, 5%);
+      }
     }
 
     &.running {
@@ -153,7 +163,7 @@
     }
 
     .info {
-      padding: 4px;
+      padding: 6px;
 
       .additional {
         float: right;
