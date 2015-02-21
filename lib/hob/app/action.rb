@@ -26,6 +26,7 @@ module Hob
         perform('deploy', true) do
           checkout
           prepare
+          _run_tests
           _stop
           link_current
           link_shared
@@ -119,8 +120,7 @@ module Hob
           end
         rescue => e
           @success = false
-          require 'pry'
-          binding.pry
+
           # FileUtils.rm_rf(app.paths.release(@number))
           # TODO log error if not CommandFailed
           # TODO link and start old rev
@@ -162,6 +162,17 @@ module Hob
         Dir.chdir(app.paths.current) do
           with_env do
             app.stop_commands.each_line do |command|
+              log(Command.new(command))
+            end
+          end
+        end
+      end
+
+      def _run_tests
+        return false unless File.exists?(app.paths.current)
+        Dir.chdir(app.paths.current) do
+          with_env do
+            app.test_commands.each_line do |command|
               log(Command.new(command))
             end
           end

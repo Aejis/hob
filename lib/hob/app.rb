@@ -94,7 +94,7 @@ module Hob
     def github
       @github ||= begin
         uri = Addressable::URI.parse(@repo)
-        uri.path.gsub(/\.git$/, '')
+        uri.path.gsub(/\.git$/, '').gsub(/^\//, '').gsub(/\/$/, '')
       end
     end
 

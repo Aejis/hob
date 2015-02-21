@@ -8,7 +8,7 @@
 
     <form action="/apps/<%= app.name %>" method="POST" class="content app-form pretty-form">
         <input type="hidden" name="_method" value="PATCH">
-        <%= erb :'_app_form', layout: false, locals: { app: app, ruby_versions: ruby_versions } %>
+        <%= erb :'_app_form', layout: false, locals: { app: app, ruby_versions: ruby_versions, errors: {} } %>
 
         <button type="submit" class="button add">Update</button>
     </form>

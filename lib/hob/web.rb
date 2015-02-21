@@ -129,7 +129,7 @@ module Hob
       app = ::Hob::App.new(params[:name])
       ruby = Lang::Ruby.new
 
-      erb(:app_edit, locals: { app: app, ruby_versions: ruby.versions })
+      erb(:app_edit, locals: { app: app, ruby_versions: ruby.versions, errors: {} })
     end
 
     # Create
