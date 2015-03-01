@@ -16,7 +16,7 @@ module Hob
       end
 
       def method_missing(method, *args, &block)
-        raise 'world was not setted up' unless @instance
+        raise 'world was not set up' unless @instance
         @instance.send(method, *args, &block)
       end
     end
