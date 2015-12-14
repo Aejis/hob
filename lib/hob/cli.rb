@@ -68,7 +68,7 @@ module Hob
       Then, start server with:
         $ hob-server start
 
-      Go to http://localhost:#{options[:port]}/, login with user "#{@login}" and start setting up your apps
+      Go to http://localhost:#{port}/, login with user "#{@login}" and start setting up your apps
       BANNER
     end
 
@@ -88,8 +88,10 @@ module Hob
 
       Hob::World.setup(make_opts)
 
-      @login = ask('User name')
-      pass  = ask('User password', :echo => false)
+      puts '-' * 34
+      puts 'Provide credentials for Admin user'
+      @login = ask('User name: ')
+      pass  = ask('User password: ', :echo => false)
 
       user = Hob::User.new(login: @login, password: pass)
       user.admin!
